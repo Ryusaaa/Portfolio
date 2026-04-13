@@ -1,6 +1,6 @@
 export const ABOUT_DATA = {
   title: "Passion & Purpose",
-  description: "I am a Fullstack Developer with a deep passion for the ever-evolving world of technology. My journey is driven by curiosity and a constant desire to explore and master new tools and frameworks.",
+  description: "I am a junior Fullstack Developer with a deep passion for the ever-evolving world of technology. My journey is driven by curiosity and a constant desire to explore and master new tools and frameworks.",
   subDescription: "With a strong foundation in problem-solving and an eagerness to learn, I am ready to contribute as a Fullstack Developer—bringing fresh ideas, dedication, and a drive to create impactful digital solutions."
 };
 

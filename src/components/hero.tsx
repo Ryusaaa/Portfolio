@@ -28,7 +28,7 @@ export function Hero({ profile }: HeroProps) {
                             transition={{ delay: 0.8, duration: 0.5, ease: "easeOut" }}
                             className="block"
                         >
-                            Fullstack Developer
+                            Junior Fullstack Developer
                         </motion.span>
                     </span>
                 </h1>

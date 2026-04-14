@@ -13,7 +13,7 @@ export const projects: Project[] = [
   {
     slug: "accounting-system",
     title: "ACCOUNTING SYSTEM",
-    role: "Fullstack Developer",
+    role: "Web Developer",
     year: "2025",
     tags: ["Laravel", "Vue.js", "MySQL", "REST API", "Finance"],
     description: `This project was developed to improve financial workflows that were previously handled manually and often caused inefficiencies. I worked closely with the finance team to understand processes such as invoicing, reporting, and reimbursements, and translated those needs into a structured system. As a fullstack developer, I built a centralized platform to manage financial data and automate reporting. This improved data consistency and reduced manual work. Through this project, I learned how to bridge communication between non-technical users and system implementation, as well as design solutions based on real operational needs.`,

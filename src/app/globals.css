@@ -92,3 +92,87 @@ body {
     -webkit-text-stroke: 0.5px rgba(255, 255, 255, 0.1);
   }
 }
+
+/* ─── Project Detail Gallery Scrollbar ─────────────────────── */
+.gallery-scroll {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--f1-red) var(--f1-dark);
+}
+
+.gallery-scroll::-webkit-scrollbar {
+  height: 3px;
+}
+
+.gallery-scroll::-webkit-scrollbar-track {
+  background: var(--f1-dark);
+}
+
+.gallery-scroll::-webkit-scrollbar-thumb {
+  background: var(--f1-red);
+}
+
+/* ─── Vertical writing mode for section labels ──────────────── */
+.writing-vertical {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+}
+
+/* ─── Loading Screen ─────────────────────────────────────────── */
+.loading-letter {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* ─── Sector Badge (Tech Stack) ─────────────────────────────── */
+.sector-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border: 1px solid var(--f1-red);
+  border-radius: 0;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--f1-red);
+  background: transparent;
+  will-change: transform, opacity;
+}
+
+/* ─── F1 Grid line dividers ─────────────────────────────────── */
+.f1-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ─── Back button underline animation ───────────────────────── */
+.back-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.back-btn::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--f1-red);
+  transition: width 0.3s ease;
+}
+
+.back-btn:hover::after {
+  width: 100%;
+}
+
+/* ─── Clip path for loading screen panels ────────────────────── */
+.loading-panel {
+  will-change: transform;
+}

@@ -4,6 +4,7 @@ import { Inter } from "next/font/google"; // Keep Inter for body text as it's re
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { ClientWrapper } from "@/components/ClientWrapper";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -49,10 +50,12 @@ export default function RootLayout({
         className={`${inter.variable} ${f1Font.variable} antialiased bg-background text-foreground flex flex-col min-h-screen`}
       >
         <Navbar />
-        <main className="flex-grow">
-          {children}
-        </main>
-        <Footer />
+        <ClientWrapper>
+          <main className="flex-grow">
+            {children}
+          </main>
+          <Footer />
+        </ClientWrapper>
       </body>
     </html>
   );

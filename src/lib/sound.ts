@@ -1,8 +1,8 @@
 export type SoundName = "passing" | "radio";
 
 const SRC: Record<SoundName, string> = {
-  passing: "/sounds/f1-passing.mp3",
-  radio: "/sounds/f1-radio.mp3",
+  passing: "/sounds/F1-PASSING.mp3",
+  radio: "/sounds/F1-RADIO.mp3",
 };
 
 const cache: Partial<Record<SoundName, HTMLAudioElement>> = {};

@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import gsap from "gsap";
 import { SplitPanels, SectorTicks } from "./transition/split-panels";
 import { EASE, GSAP_EASE_INOUT } from "@/lib/motion";
-import { playSound } from "@/lib/sound";
+import { playOnFirstGesture, playSound } from "@/lib/sound";
 
 interface LoadingScreenProps {
   onComplete: () => void;
@@ -101,21 +101,9 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
     });
 
     // Entrance sound. Browsers usually block audio before the first user gesture,
-    // so if autoplay is refused, play it once on the first click/tap/key while the boot screen is still up.
-    let cancelled = false;
-    let removeGesture = () => {};
-    playSound("passing").then((ok) => {
-      if (ok || cancelled || state.done) return;
-      const retry = () => {
-        removeGesture();
-        if (!state.done) void playSound("passing");
-      };
-      window.addEventListener("pointerdown", retry, { once: true });
-      window.addEventListener("keydown", retry, { once: true });
-      removeGesture = () => {
-        window.removeEventListener("pointerdown", retry);
-        window.removeEventListener("keydown", retry);
-      };
+    // so if autoplay is refused, play it on the first click/tap/key within 8 s of loading.
+    void playSound("passing").then((ok) => {
+      if (!ok) playOnFirstGesture("passing", 8000);
     });
 
     Promise.all([fontsReady, loadReady]).then(maybeFinish);
@@ -126,8 +114,6 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
     const stopPoll = setTimeout(() => clearInterval(poll), MIN_MS + 200);
 
     return () => {
-      cancelled = true;
-      removeGesture();
       clearInterval(poll);
       clearTimeout(stopPoll);
       if (forceTimer) clearTimeout(forceTimer);

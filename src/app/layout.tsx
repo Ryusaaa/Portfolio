@@ -7,9 +7,10 @@ import { Footer } from "@/components/footer";
 import { ClientWrapper } from "@/components/ClientWrapper";
 import { PageTransitionProvider } from "@/components/transition/page-transition-provider";
 import { CursorMount } from "@/components/cursor-mount";
+import { SiteChrome } from "@/components/site-chrome";
 
-// Runs before first paint: only the initial load of "/" in a fresh session gets the boot screen.
-const bootGate = `try{if(location.pathname==="/"&&!sessionStorage.getItem("boot-seen")&&!matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.dataset.boot="pending"}}catch(e){}`;
+// Runs before first paint: only the first page load of a fresh session gets the boot screen.
+const bootGate = `try{var p=location.pathname;if(p!=="/start"&&!sessionStorage.getItem("boot-seen")&&!matchMedia("(prefers-reduced-motion: reduce)").matches){sessionStorage.setItem("boot-return",p+location.search+location.hash);document.documentElement.dataset.boot="pending";location.replace("/start")}}catch(e){}`;
 
 const inter = Inter({
   variable: "--font-sans",
@@ -52,19 +53,22 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <head>
-        <link rel="preload" href="/sounds/F1-PASSING.mp3" as="audio" type="audio/mpeg" />
         <script dangerouslySetInnerHTML={{ __html: bootGate }} />
       </head>
       <body
         className={`${inter.variable} ${f1Font.variable} antialiased bg-background text-foreground flex flex-col min-h-screen`}
       >
         <PageTransitionProvider>
-          <Navbar />
+          <SiteChrome>
+            <Navbar />
+          </SiteChrome>
           <ClientWrapper>
             <main className="flex-grow">
               {children}
             </main>
-            <Footer />
+            <SiteChrome>
+              <Footer />
+            </SiteChrome>
           </ClientWrapper>
           <CursorMount />
         </PageTransitionProvider>

@@ -48,26 +48,27 @@ export function TextReveal({ text, text2, className, delay = 0, duration = 0.5 }
 
     return (
         <motion.span
-            style={{ display: "inline-block" }} // Ensures word break works if needed, but for chars typically inline-flex or similar
+            style={{ display: "block" }}
             variants={container}
             initial="hidden"
             animate="visible"
             className={className}
         >
-            {characters.map((char, index) => (
-                <motion.span variants={child} key={`t1-${index}`} style={{ display: "inline-block", whiteSpace: "pre" }}>
-                    {char}
-                </motion.span>
-            ))}
+            <span style={{ display: "block" }}>
+                {characters.map((char, index) => (
+                    <motion.span variants={child} key={`t1-${index}`} style={{ display: "inline-block", whiteSpace: "pre" }}>
+                        {char}
+                    </motion.span>
+                ))}
+            </span>
             {text2 && (
-                <>
-                    <br />
+                <span style={{ display: "block" }}>
                     {characters2.map((char, index) => (
                         <motion.span variants={child} key={`t2-${index}`} style={{ display: "inline-block", whiteSpace: "pre" }}>
                             {char}
                         </motion.span>
                     ))}
-                </>
+                </span>
             )}
         </motion.span>
     );

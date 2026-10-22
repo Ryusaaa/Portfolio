@@ -12,10 +12,10 @@ export function Hero() {
                     <TextReveal
                         text="Satria Ibnu"
                         text2="Safarudin"
-                        className="text-4xl md:text-6xl lg:text-7xl leading-[1.1] tracking-normal"
+                        className="text-[clamp(2.25rem,10vw,5rem)] lg:text-7xl leading-[1.1] tracking-normal"
                         delay={0.2}
                     />
-                    <span className="block text-3xl md:text-5xl text-f1-red tracking-normal mt-4 font-bold overflow-hidden">
+                    <span className="block text-[clamp(1.5rem,6vw,3rem)] md:text-5xl text-f1-red tracking-normal mt-4 font-bold overflow-hidden">
                         <motion.span
                             initial={{ y: "100%" }}
                             animate={{ y: 0 }}

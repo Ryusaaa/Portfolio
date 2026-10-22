@@ -22,7 +22,7 @@ export function Footer() {
 
                         <div className="mt-12">
                             <Link
-                                href={`mailto:${SOCIAL_LINKS.email}`}
+                                href="/contact"
                                 className="inline-block border border-white/20 px-8 py-4 font-display uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300"
                             >
                                 Get In Touch

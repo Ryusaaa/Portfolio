@@ -12,7 +12,7 @@ const menuItems = [
     { title: "Home", href: "/" },
     { title: "About", href: "/#about" },
     { title: "Project", href: "/#projects" },
-    { title: "Contact", href: "/#contact" },
+    { title: "Contact", href: "/contact" },
 ];
 
 export function Navbar() {

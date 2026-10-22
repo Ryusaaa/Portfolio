@@ -2,6 +2,9 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getProjectBySlug, getAllProjectSlugs } from "@/lib/projects";
 import { ProjectDetail } from "@/components/ProjectDetail";
+import { PROJECTS_DATA, getProjectIndex } from "@/lib/data";
+
+export const dynamicParams = false;
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -35,5 +38,15 @@ export default async function ProjectPage({ params }: PageProps) {
     notFound();
   }
 
-  return <ProjectDetail project={project} />;
+  const index = Math.max(0, getProjectIndex(slug));
+  const nextData = PROJECTS_DATA[(index + 1) % PROJECTS_DATA.length];
+  const next = getProjectBySlug(nextData.slug);
+
+  return (
+    <ProjectDetail
+      project={project}
+      index={index}
+      next={{ slug: nextData.slug, title: next?.title ?? nextData.title, index: (index + 1) % PROJECTS_DATA.length }}
+    />
+  );
 }

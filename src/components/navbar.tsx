@@ -10,9 +10,9 @@ import { CVModal } from "./ui/cv-modal";
 
 const menuItems = [
     { title: "Home", href: "/" },
-    { title: "About", href: "#about" },
-    { title: "Project", href: "#projects" },
-    { title: "Contact", href: "#contact" },
+    { title: "About", href: "/#about" },
+    { title: "Project", href: "/#projects" },
+    { title: "Contact", href: "/#contact" },
 ];
 
 export function Navbar() {
@@ -75,7 +75,7 @@ export function Navbar() {
                     } ${isMenuOpen ? "text-transparent pointer-events-none" : "mix-blend-exclude text-white"}`}
             >
                 {/* Logo */}
-                <Link href="/" className={`relative flex items-center gap-3 group z-[70] ${isMenuOpen ? "pointer-events-auto opacity-0" : "opacity-100"} transition-opacity duration-300`}>
+                <Link href="/" className={`cursor-target relative flex items-center gap-3 group z-[70] ${isMenuOpen ? "pointer-events-auto opacity-0" : "opacity-100"} transition-opacity duration-300`}>
                     <div className="relative w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden transition-transform duration-300 group-hover:scale-105 ring-2 ring-white/10 group-hover:ring-f1-red/50">
                         <Image
                             src="/logo-RYS.png"
@@ -94,7 +94,7 @@ export function Navbar() {
                 {!isMenuOpen && (
                     <button
                         onClick={toggleMenu}
-                        className="group flex items-center gap-2 z-[70] cursor-pointer pointer-events-auto"
+                        className="cursor-target group flex items-center gap-2 z-[70] cursor-pointer pointer-events-auto"
                     >
                         <span className="font-display font-medium uppercase tracking-wider text-sm hidden md:block group-hover:text-f1-red transition-colors">
                             Menu
@@ -130,7 +130,7 @@ export function Navbar() {
                             <div className="flex justify-end mb-8 md:mb-12">
                                 <button
                                     onClick={toggleMenu}
-                                    className="group flex items-center gap-2 cursor-pointer text-white"
+                                    className="cursor-target group flex items-center gap-2 cursor-pointer text-white"
                                 >
                                     <span className="font-display font-medium uppercase tracking-wider text-sm group-hover:text-f1-red transition-colors">
                                         Close

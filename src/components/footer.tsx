@@ -13,7 +13,7 @@ export function Footer() {
                     <div className="flex flex-col justify-between">
                         <div>
                             <h2 className="text-4xl md:text-6xl font-display font-bold uppercase tracking-tighter leading-none mb-2">
-                                Let's Work
+                                Let&apos;s Work
                             </h2>
                             <h2 className="text-4xl md:text-6xl font-display font-bold uppercase tracking-tighter leading-none text-f1-red">
                                 Together

@@ -1,194 +1,183 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import gsap from "gsap";
+import { SplitPanels, SectorTicks } from "./transition/split-panels";
+import { EASE, GSAP_EASE_INOUT } from "@/lib/motion";
+import { playSound } from "@/lib/sound";
 
 interface LoadingScreenProps {
-  isLoading: boolean;
-  onComplete?: () => void;
+  onComplete: () => void;
 }
 
 const LETTERS = "LOADING".split("");
+const MIN_MS = 900;
+const MAX_MS = 2000;
 
 const letterVariants = {
   hidden: { y: 40, opacity: 0 },
   visible: (i: number) => ({
     y: 0,
     opacity: 1,
-    transition: {
-      delay: i * 0.06,
-      duration: 0.4,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
+    transition: { delay: i * 0.06, duration: 0.4, ease: EASE },
   }),
 };
 
-export function LoadingScreen({ isLoading, onComplete }: LoadingScreenProps) {
-  const [counter, setCounter] = useState(0);
-  const [exiting, setExiting] = useState(false);
-
+/**
+ * Boot screen. Progress is tied to real readiness: fonts + window load.
+ * Visible for at least MIN_MS and never longer than MAX_MS.
+ */
+export function LoadingScreen({ onComplete }: LoadingScreenProps) {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const topRef = useRef<HTMLDivElement>(null);
+  const botRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
-  const topPanelRef = useRef<HTMLDivElement>(null);
-  const botPanelRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const tweenRef = useRef<gsap.core.Tween | null>(null);
+  const counterRef = useRef<HTMLSpanElement>(null);
 
-  /* ── Progress bar + counter ── */
   useEffect(() => {
-    if (!isLoading || exiting) return;
+    const root = rootRef.current;
+    if (!root) return;
 
-    const progress = { val: 0 };
+    const startedAt = performance.now();
+    const state = { fonts: false, loaded: false, shown: 0, done: false };
+    const proxy = { v: 0 };
+    let exitTl: gsap.core.Timeline | null = null;
+    let forceTimer: ReturnType<typeof setTimeout> | null = null;
+    let minTimer: ReturnType<typeof setTimeout> | null = null;
 
-    tweenRef.current = gsap.to(progress, {
-      val: 100,
-      duration: 1.8,
-      ease: "power2.inOut",
-      onUpdate() {
-        const v = Math.round(progress.val);
-        setCounter(v);
-        if (barRef.current) {
-          barRef.current.style.width = `${progress.val}%`;
-        }
-      },
-      onComplete() {
-        // Brief pause at 100, then split-wipe exit
-        setTimeout(() => {
-          setExiting(true);
-        }, 300);
-      },
+    const paint = () => {
+      const v = proxy.v;
+      if (barRef.current) barRef.current.style.transform = `scaleX(${v / 100})`;
+      if (counterRef.current) counterRef.current.textContent = String(Math.round(v)).padStart(3, "0");
+      root.querySelectorAll<HTMLElement>("[data-tick]").forEach((el, i) => {
+        el.dataset.on = String(v >= [33, 66, 100][i] - 0.5);
+      });
+    };
+
+    const target = () => {
+      const elapsed = performance.now() - startedAt;
+      // Real stages: start 15, fonts +42, window load +43. Never ahead of the minimum visible time.
+      const real = 15 + (state.fonts ? 42 : 0) + (state.loaded ? 43 : 0);
+      return Math.min(real, 100 * Math.min(1, elapsed / MIN_MS));
+    };
+
+    const advance = () => {
+      if (state.done) return;
+      gsap.to(proxy, { v: target(), duration: 0.35, ease: "power2.out", overwrite: true, onUpdate: paint });
+    };
+
+    const finish = () => {
+      if (state.done) return;
+      state.done = true;
+      gsap.to(proxy, { v: 100, duration: 0.25, ease: "power2.out", overwrite: true, onUpdate: paint });
+      // Reveal the page just as the wipe starts.
+      delete document.documentElement.dataset.boot;
+      exitTl = gsap.timeline({ delay: 0.3, onComplete });
+      exitTl.to([topRef.current, botRef.current], {
+        yPercent: (i: number) => (i === 0 ? -100 : 100),
+        duration: 0.75,
+        ease: GSAP_EASE_INOUT,
+      });
+    };
+
+    const maybeFinish = () => {
+      if (state.fonts && state.loaded) {
+        const wait = Math.max(0, MIN_MS - (performance.now() - startedAt));
+        minTimer = setTimeout(finish, wait);
+      }
+    };
+
+    const fontsReady = (document.fonts?.ready ?? Promise.resolve()).then(() => {
+      state.fonts = true;
+      advance();
     });
+    const loadReady = new Promise<void>((resolve) => {
+      if (document.readyState === "complete") resolve();
+      else window.addEventListener("load", () => resolve(), { once: true });
+    }).then(() => {
+      state.loaded = true;
+      advance();
+    });
+
+    // Entrance sound. Browsers usually block audio before the first user gesture,
+    // so if autoplay is refused, play it once on the first click/tap/key while the boot screen is still up.
+    let cancelled = false;
+    let removeGesture = () => {};
+    playSound("passing").then((ok) => {
+      if (ok || cancelled || state.done) return;
+      const retry = () => {
+        removeGesture();
+        if (!state.done) void playSound("passing");
+      };
+      window.addEventListener("pointerdown", retry, { once: true });
+      window.addEventListener("keydown", retry, { once: true });
+      removeGesture = () => {
+        window.removeEventListener("pointerdown", retry);
+        window.removeEventListener("keydown", retry);
+      };
+    });
+
+    Promise.all([fontsReady, loadReady]).then(maybeFinish);
+    forceTimer = setTimeout(finish, MAX_MS);
+    advance();
+    // Keep the bar honest while waiting: re-evaluate until the minimum time has passed.
+    const poll = setInterval(advance, 150);
+    const stopPoll = setTimeout(() => clearInterval(poll), MIN_MS + 200);
 
     return () => {
-      tweenRef.current?.kill();
+      cancelled = true;
+      removeGesture();
+      clearInterval(poll);
+      clearTimeout(stopPoll);
+      if (forceTimer) clearTimeout(forceTimer);
+      if (minTimer) clearTimeout(minTimer);
+      exitTl?.kill();
+      gsap.killTweensOf(proxy);
+      delete document.documentElement.dataset.boot;
     };
-  }, [isLoading, exiting]);
-
-  /* ── Split-wipe exit ── */
-  useEffect(() => {
-    if (!exiting) return;
-
-    const top = topPanelRef.current;
-    const bot = botPanelRef.current;
-    if (!top || !bot) return;
-
-    const tl = gsap.timeline({
-      onComplete() {
-        onComplete?.();
-      },
-    });
-
-    tl.to(
-      [top, bot],
-      {
-        yPercent: (i) => (i === 0 ? -100 : 100),
-        duration: 0.75,
-        ease: "power3.inOut",
-        stagger: 0,
-      }
-    );
-  }, [exiting, onComplete]);
+  }, [onComplete]);
 
   return (
-    <AnimatePresence>
-      {isLoading && (
-        <motion.div
-          ref={containerRef}
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 0.1, delay: 0.6 } }}
-          className="fixed inset-0 z-[999] pointer-events-none"
-          aria-hidden="true"
-        >
-          {/* Top panel */}
-          <div
-            ref={topPanelRef}
-            className="loading-panel absolute inset-x-0 top-0 h-1/2 bg-[#15151e] flex flex-col items-center justify-end pb-8 overflow-hidden"
-          >
-            {/* Telemetry grid lines */}
-            <div className="absolute inset-0 pointer-events-none opacity-[0.04]">
-              {Array.from({ length: 8 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="absolute top-0 bottom-0 border-l border-white"
-                  style={{ left: `${(i + 1) * 12.5}%` }}
-                />
-              ))}
-            </div>
-
-            {/* LOADING text — staggered letter reveal */}
-            <div className="flex gap-[2px] mb-6" aria-label="Loading">
-              {LETTERS.map((letter, i) => (
-                <motion.span
-                  key={i}
-                  custom={i}
-                  variants={letterVariants}
-                  initial="hidden"
-                  animate="visible"
-                  className="loading-letter font-display text-5xl md:text-7xl font-bold tracking-[0.15em] text-white uppercase"
-                >
-                  {letter}
-                </motion.span>
-              ))}
-            </div>
-
-            {/* Red rule between top/bottom panels */}
-            <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-[#e10600]" />
+    <div ref={rootRef} data-boot-overlay className="fixed inset-0 z-[999] pointer-events-none" aria-hidden="true">
+      <SplitPanels
+        topRef={topRef}
+        bottomRef={botRef}
+        top={
+          <div className="flex gap-[2px] mb-6">
+            {LETTERS.map((letter, i) => (
+              <motion.span
+                key={i}
+                custom={i}
+                variants={letterVariants}
+                initial="hidden"
+                animate="visible"
+                className="loading-letter font-display text-5xl md:text-7xl font-bold tracking-[0.15em] text-white uppercase"
+              >
+                {letter}
+              </motion.span>
+            ))}
           </div>
-
-          {/* Bottom panel */}
-          <div
-            ref={botPanelRef}
-            className="loading-panel absolute inset-x-0 bottom-0 h-1/2 bg-[#15151e] flex flex-col items-center justify-start pt-8 overflow-hidden"
-          >
-            {/* Red rule at top of bottom panel */}
-            <div className="absolute top-0 left-0 right-0 h-[1px] bg-[#e10600]" />
-
-            {/* Progress bar */}
-            <div className="w-64 md:w-96 mt-4">
-              <div className="flex justify-between items-center mb-2">
-                <span className="font-mono text-[10px] text-[#a1a1aa] uppercase tracking-[0.2em]">
-                  SYS INIT
-                </span>
-                <span className="font-mono text-[10px] text-[#e10600] tracking-widest tabular-nums">
-                  {String(counter).padStart(3, "0")}
-                </span>
-              </div>
-
-              {/* Track */}
-              <div className="relative h-[2px] bg-[#38383f] w-full overflow-hidden">
-                <div
-                  ref={barRef}
-                  className="absolute left-0 top-0 h-full bg-[#e10600]"
-                  style={{ width: "0%", boxShadow: "0 0 8px #e10600" }}
-                />
-              </div>
-
-              {/* Sector ticks */}
-              <div className="flex justify-between mt-1">
-                {["S1", "S2", "S3"].map((s) => (
-                  <span
-                    key={s}
-                    className="font-mono text-[9px] text-[#38383f] uppercase tracking-widest"
-                  >
-                    {s}
-                  </span>
-                ))}
-              </div>
+        }
+        bottom={
+          <div className="w-64 md:w-96 mt-4">
+            <div className="flex justify-between items-center mb-2">
+              <span className="font-mono text-[10px] text-[#a1a1aa] uppercase tracking-[0.2em]">SYS INIT</span>
+              <span ref={counterRef} className="font-mono text-[10px] text-[#e10600] tracking-widest tabular-nums">
+                000
+              </span>
             </div>
-
-            {/* Telemetry grid lines */}
-            <div className="absolute inset-0 pointer-events-none opacity-[0.04]">
-              {Array.from({ length: 8 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="absolute top-0 bottom-0 border-l border-white"
-                  style={{ left: `${(i + 1) * 12.5}%` }}
-                />
-              ))}
+            <div className="relative h-[2px] bg-[#38383f] w-full overflow-hidden">
+              <div
+                ref={barRef}
+                className="absolute inset-0 bg-[#e10600] origin-left"
+                style={{ transform: "scaleX(0)", boxShadow: "0 0 8px #e10600" }}
+              />
             </div>
+            <SectorTicks />
           </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+        }
+      />
+    </div>
   );
 }

@@ -58,6 +58,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Boot gate: set by an inline script in layout.tsx before first paint, removed by the overlay. */
+html[data-boot="pending"] body > *:not([data-boot-overlay]) {
+  visibility: hidden;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -175,4 +180,30 @@ body {
 /* ─── Clip path for loading screen panels ────────────────────── */
 .loading-panel {
   will-change: transform;
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── Project loading skeleton: scan line (transform only) ──── */
+@keyframes scan-x {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+
+.scan-line {
+  animation: scan-x 1.2s linear infinite;
 }

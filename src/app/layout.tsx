@@ -5,6 +5,11 @@ import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { ClientWrapper } from "@/components/ClientWrapper";
+import { PageTransitionProvider } from "@/components/transition/page-transition-provider";
+import { CursorMount } from "@/components/cursor-mount";
+
+// Runs before first paint: only the initial load of "/" in a fresh session gets the boot screen.
+const bootGate = `try{if(location.pathname==="/"&&!sessionStorage.getItem("boot-seen")&&!matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.dataset.boot="pending"}}catch(e){}`;
 
 const inter = Inter({
   variable: "--font-sans",
@@ -45,17 +50,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html lang="en" className="dark" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: bootGate }} />
+      </head>
       <body
         className={`${inter.variable} ${f1Font.variable} antialiased bg-background text-foreground flex flex-col min-h-screen`}
       >
-        <Navbar />
-        <ClientWrapper>
-          <main className="flex-grow">
-            {children}
-          </main>
-          <Footer />
-        </ClientWrapper>
+        <PageTransitionProvider>
+          <Navbar />
+          <ClientWrapper>
+            <main className="flex-grow">
+              {children}
+            </main>
+            <Footer />
+          </ClientWrapper>
+          <CursorMount />
+        </PageTransitionProvider>
       </body>
     </html>
   );

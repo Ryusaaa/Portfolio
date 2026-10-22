@@ -9,7 +9,13 @@ interface ActivityEvent {
     id: string;
     type: string;
     repo: { name: string; url: string };
-    payload: any;
+    payload: {
+        commits?: { message?: string }[];
+        ref_type?: string;
+        action?: string;
+        pull_request?: { title?: string };
+        issue?: { title?: string };
+    };
     created_at: string;
 }
 

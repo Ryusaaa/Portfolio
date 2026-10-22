@@ -1,23 +1,17 @@
 "use client";
 
-import { GithubProfile } from "@/lib/github";
-import Link from "next/link";
 import { TextReveal } from "./ui/text-reveal";
 import { motion } from "framer-motion";
 
-interface HeroProps {
-    profile: GithubProfile;
-}
-
-export function Hero({ profile }: HeroProps) {
+export function Hero() {
     return (
         <section className="min-h-screen flex flex-col justify-center px-6 pt-20 relative overflow-hidden">
             <div className="container mx-auto">
                 {/* Name - Huge Typography */}
                 <h1 className="font-display font-black uppercase tracking-tighter mix-blend-difference text-white mb-4">
                     <TextReveal
-                        text="Satria"
-                        text2="Ibnu"
+                        text="Satria Ibnu"
+                        text2="Safarudin"
                         className="text-4xl md:text-6xl lg:text-7xl leading-[1.1] tracking-normal"
                         delay={0.2}
                     />

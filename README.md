@@ -1,21 +1,22 @@
 # 🏎️ Satria Ibnu Safarudin - Portfolio
 
-> A high-performance, F1-themed portfolio website built with Next.js 15, featuring dynamic GitHub integration and stunning animations.
+> A high-performance, F1-themed portfolio website built with Next.js 16, with a project-open transition, a tools strip and React Bits components.
 
-![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)
+![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38B2AC?style=for-the-badge&logo=tailwind-css)
-![Framer Motion](https://img.shields.io/badge/Framer_Motion-11-FF0055?style=for-the-badge&logo=framer)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-FF0055?style=for-the-badge&logo=framer)
 
 ## ✨ Features
 
 - 🏁 **F1-Themed Design** - Racing-inspired aesthetics with dynamic animations
-- ⚡ **Next.js 15 + Turbopack** - Lightning-fast development and production builds
+- ⚡ **Next.js 16 + Turbopack** - Lightning-fast development and production builds
 - 🎨 **Tailwind CSS v4** - Modern styling with custom F1 color palette
-- 🔄 **GitHub Integration** - Automatically fetches and displays your repositories
+- 🧭 **Project-open transition** - Split-panel "pit-in" tied to the real load of the detail page and its cover image
+- 🧰 **Tools strip** - Logo loop of the frameworks and tools used in the projects above
 - 📱 **Fully Responsive** - Optimized for all devices (mobile, tablet, desktop)
 - 🎭 **Framer Motion** - Smooth, performant animations throughout
-- 🌐 **ISR Support** - Incremental Static Regeneration for optimal performance
+- 🌐 **Fully static home page** - No GitHub request at build or runtime on `/`
 - 🎯 **SEO Optimized** - Meta tags and semantic HTML structure
 
 ## 🚀 Quick Start
@@ -38,22 +39,12 @@
    npm install
    ```
 
-3. **Set up environment variables**
-   ```bash
-   cp .env.example .env.local
-   ```
-   
-   Update the `.env.local` with your GitHub username:
-   ```env
-   NEXT_PUBLIC_GITHUB_USERNAME=your-github-username
-   ```
-
-4. **Run the development server**
+3. **Run the development server**
    ```bash
    npm run dev
    ```
 
-5. **Open [http://localhost:3000](http://localhost:3000)** in your browser
+4. **Open [http://localhost:3000](http://localhost:3000)** in your browser
 
 ## 📁 Project Structure
 
@@ -68,8 +59,10 @@
 │   │       └── [slug]/       # Dynamic project pages
 │   ├── components/
 │   │   ├── hero.tsx          # Hero section with modal
-│   │   ├── project-card.tsx  # Project card component
-│   │   └── race-dashboard.tsx # Live telemetry section
+│   │   ├── project-showcase.tsx # Selected Works cards
+│   │   ├── tools-strip.tsx   # Tools logo loop
+│   │   ├── transition/       # Project-open overlay + TransitionLink
+│   │   └── reactbits/        # Vendored React Bits components (see below)
 │   ├── lib/
 │   │   ├── github.ts         # GitHub API utilities
 │   │   └── utils.ts          # Helper functions
@@ -148,3 +141,19 @@ This project is open source and available under the [MIT License](LICENSE).
 <p align="center">
   Built with ❤️ and 🏎️ racing spirit
 </p>
+
+## Content to add
+
+SmartAI Refrigerator currently renders a typographic cover plate. To replace it with real images, add these files (exact names and case) and set `image` in `PROJECTS_DATA` and `aestheticImage` / `detailImages` in `src/lib/projects.ts`:
+
+- `public/Image/SMARTAI-REFRIGERATOR.png` (card cover, 16:9, 1600 px wide or more)
+- `public/Image/SMARTAI-AESTHETIC.png` (detail banner, 16:7, 2000 px wide or more)
+- `public/Image/detail-smartai/*.png` (real screenshots)
+
+## Third-party components
+
+`src/components/reactbits/` contains components copied from [React Bits](https://reactbits.dev) (MIT + Commons Clause). They are used inside this website and are not redistributed as a component library. Keep the attribution comment at the top of each file.
+
+## Scripts
+
+`npm run dev`, `npm run build`, `npm run lint`, `npm test`. The production build downloads the Inter font from Google Fonts, so it needs internet access.

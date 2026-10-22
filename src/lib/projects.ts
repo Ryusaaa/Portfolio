@@ -5,13 +5,31 @@ export interface Project {
   year: string;
   tags: string[];
   description: string;
-  aestheticImage: string;
+  aestheticImage?: string;
   detailImages?: string[];
   githubFrontend?: string;
   githubBackend?: string;
 }
 
 export const projects: Project[] = [
+  {
+    slug: "smartai-refrigerator",
+    title: "SMARTAI REFRIGERATOR",
+    role: "Full-Stack Developer — Training Final Project",
+    year: "2026",
+    tags: ["React", "Vite", "Tailwind CSS", "Node.js", "Express", "MySQL", "Prisma", "Cloudflare Workers AI", "REST API", "SSE"],
+    description: `SmartAI Refrigerator is a full-stack web application that helps users manage food inventory, track expiration dates, and generate AI-assisted recipes from available ingredients. I built the application as the final project for BBPVP Bandung's Node.js and React training, integrating a React frontend with a Node.js/Express API, a MySQL database managed with Prisma, and Cloudflare Workers AI for recipe generation and conversational assistance.`,
+    aestheticImage: "/Image/SMARTAI-AESTHETIC.png",
+    detailImages: [
+      "/Image/detail-smartai/Login-Page.png",
+      "/Image/detail-smartai/Dashboard-Page.png",
+      "/Image/detail-smartai/Recipe-Generator-Page.png",
+      "/Image/detail-smartai/Chatbot-Page.png",
+      "/Image/detail-smartai/Refrigerator-Stock-Page.png",
+    ],
+    githubFrontend: "https://github.com/Ryusaaa/smart-ai-refrigerator-frontend",
+    githubBackend: "https://github.com/Ryusaaa/smart-ai-refrigerator-backend",
+  },
   {
     slug: "accounting-system",
     title: "ACCOUNTING SYSTEM",

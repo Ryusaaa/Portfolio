@@ -12,7 +12,7 @@ export function CursorMount() {
     <TargetCursor
       targetSelector=".cursor-target"
       cursorColor="#ffffff"
-      cursorColorOnTarget="#e10600"
+      cursorColorOnTarget="#E32119"
       blendMode="normal"
       hoverDuration={0.15}
       parallaxOn={false}

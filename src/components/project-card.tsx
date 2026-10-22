@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { GithubRepo } from "@/types";
 import { Star, GitFork, ArrowUpRight, Code2 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -65,7 +65,7 @@ export function ProjectCard({ repo, index }: ProjectCardProps) {
 
                 {/* Hover corner accent */}
                 <div className="absolute top-0 right-0 p-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <div className="w-2 h-2 bg-f1-red rounded-full shadow-[0_0_10px_#e10600] animate-pulse" />
+                    <div className="w-2 h-2 bg-f1-red rounded-full shadow-[0_0_10px_#E32119] animate-pulse" />
                 </div>
             </div>
         </Link>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import { useRef } from "react";
@@ -36,13 +36,13 @@ function ProjectCard({ slug, title, description, image, tags, year, type, index 
         data-cursor-label="OPEN"
         className={`cursor-target group relative flex flex-col ${
           isEven ? "md:flex-row" : "md:flex-row-reverse"
-        } gap-8 md:gap-16 items-center outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#e10600]`}
+        } gap-8 md:gap-16 items-center outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E32119]`}
       >
         {/* Red edge line */}
         <span
           aria-hidden="true"
           data-edge
-          className="absolute top-0 bottom-0 w-[3px] bg-[#e10600] z-10"
+          className="absolute top-0 bottom-0 w-[3px] bg-[#E32119] z-10"
           style={{ [isEven ? "left" : "right"]: "-16px", transform: "scaleY(0)", transformOrigin: "top" }}
         />
 
@@ -64,7 +64,7 @@ function ProjectCard({ slug, title, description, image, tags, year, type, index 
 
         {/* Content */}
         <div data-content className="w-full md:w-2/5 flex flex-col justify-center">
-          <span className="text-[#e10600] font-mono text-sm uppercase mb-2 tracking-widest">
+          <span className="text-[#E32119] font-mono text-sm uppercase mb-2 tracking-widest">
             P{index + 1} — {type} — {year}
           </span>
           <h3 className="text-3xl md:text-5xl font-display font-bold uppercase tracking-tighter mb-6 leading-none">
@@ -82,7 +82,7 @@ function ProjectCard({ slug, title, description, image, tags, year, type, index 
 
           <Magnet padding={40} maxOffset={6} wrapperClassName="self-start">
             <span
-              className="inline-flex items-center gap-2 font-mono text-sm uppercase tracking-widest px-5 py-3 border border-[#e10600] text-white transition-colors duration-[220ms] group-hover:bg-[#e10600] group-focus-visible:bg-[#e10600]"
+              className="inline-flex items-center gap-2 font-mono text-sm uppercase tracking-widest px-5 py-3 border border-[#E32119] text-white transition-colors duration-[220ms] group-hover:bg-[#E32119] group-focus-visible:bg-[#E32119]"
             >
               View Detail
               <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 group-focus-visible:translate-x-1">

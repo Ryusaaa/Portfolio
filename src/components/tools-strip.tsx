@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import type { IconType } from "react-icons";
 import {
@@ -16,7 +16,7 @@ const ICONS: Record<string, IconType> = {
 function ToolItem({ name, icon }: { name: string; icon: string }) {
   const Icon = ICONS[icon];
   return (
-    <span className="inline-flex items-center gap-3 text-[#a1a1aa] hover:text-white transition-colors duration-200 px-6 border-l border-[#38383f] h-10">
+    <span className="inline-flex items-center gap-3 text-[#8fa0c0] hover:text-white transition-colors duration-200 px-6 border-l border-[#1e2f55] h-10">
       {Icon && <Icon aria-hidden="true" className="text-2xl md:text-3xl shrink-0" />}
       <span className="font-mono text-[11px] md:text-xs uppercase tracking-[0.2em] whitespace-nowrap">{name}</span>
     </span>
@@ -32,11 +32,11 @@ const PAD = String(TOOLS_DATA.length).padStart(2, "0");
 
 export function ToolsStrip() {
   return (
-    <section id="tools" aria-label="Tools in use" className="py-16 md:py-20 border-y border-[#38383f] overflow-hidden">
+    <section id="tools" aria-label="Tools in use" className="py-16 md:py-20 border-y border-[#1e2f55] overflow-hidden">
       <div className="container mx-auto px-6 flex items-center gap-4 mb-10">
-        <span className="font-mono text-[10px] md:text-xs text-[#e10600] uppercase tracking-[0.25em]">Tools in use</span>
-        <div className="h-[1px] flex-1 bg-[#38383f]" />
-        <span className="font-mono text-[10px] md:text-xs text-[#a1a1aa] tracking-[0.25em] tabular-nums">{PAD} TOOLS</span>
+        <span className="font-mono text-[10px] md:text-xs text-[#E32119] uppercase tracking-[0.25em]">Tools in use</span>
+        <div className="h-[1px] flex-1 bg-[#1e2f55]" />
+        <span className="font-mono text-[10px] md:text-xs text-[#8fa0c0] tracking-[0.25em] tabular-nums">{PAD} TOOLS</span>
       </div>
 
       {/* Each tool once, for assistive tech. */}

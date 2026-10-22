@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
@@ -228,7 +228,7 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
               top={
                 <div className="text-center px-6">
                   {meta.index !== undefined && (
-                    <p className="font-mono text-[11px] text-[#e10600] tracking-[0.3em] mb-3">
+                    <p className="font-mono text-[11px] text-[#E32119] tracking-[0.3em] mb-3">
                       P{meta.index + 1}
                     </p>
                   )}

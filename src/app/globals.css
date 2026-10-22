@@ -1,33 +1,38 @@
 @import "tailwindcss";
 
 :root {
-  /* F1 Palette - Default Dark */
-  --background: #15151e;
-  --foreground: #f1f1f1;
+  /* Red Bull Palette */
+  --background: #0C162F;
+  --foreground: #FFFFFF;
 
-  --card: #1e1e26;
-  --card-foreground: #f1f1f1;
+  --card: #111d3e;
+  --card-foreground: #FFFFFF;
 
-  --primary: #e10600;
-  --primary-foreground: #ffffff;
+  --primary: #E32119;
+  --primary-foreground: #FFFFFF;
 
-  --secondary: #2a2a35;
-  --secondary-foreground: #f1f1f1;
+  --secondary: #162040;
+  --secondary-foreground: #FFFFFF;
 
-  --muted: #2a2a35;
-  --muted-foreground: #a1a1aa;
+  --muted: #162040;
+  --muted-foreground: #8fa0c0;
 
-  --accent: #e10600;
-  --accent-foreground: #ffffff;
+  --accent: #FFCC00;
+  --accent-foreground: #0C162F;
 
-  --border: #38383f;
+  --border: #1e2f55;
 
-  /* Custom F1 Variables */
-  --f1-red: #e10600;
-  --f1-dark: #15151e;
-  --f1-gray-dark: #1e1e26;
-  --f1-gray: #38383f;
-  --f1-silver: #a1a1aa;
+  /* Red Bull Custom Variables (keeping f1- prefix for Tailwind compat) */
+  --f1-red: #E32119;
+  --f1-dark: #0C162F;
+  --f1-gray-dark: #111d3e;
+  --f1-gray: #1e2f55;
+  --f1-silver: #8fa0c0;
+
+  /* Extra RB tokens */
+  --rb-yellow: #FFCC00;
+  --rb-navy: #0C162F;
+  --rb-navy-mid: #111d3e;
 }
 
 @theme inline {
@@ -49,6 +54,10 @@
   --color-f1-dark: var(--f1-dark);
   --color-f1-gray: var(--f1-gray);
   --color-f1-gray-dark: var(--f1-gray-dark);
+  --color-f1-silver: var(--f1-silver);
+  --color-rb-yellow: var(--rb-yellow);
+  --color-rb-navy: var(--rb-navy);
+  --color-rb-navy-mid: var(--rb-navy-mid);
 
   --font-sans: var(--font-sans);
   --font-display: var(--font-display);

@@ -1,4 +1,4 @@
-import type { ReactNode, Ref } from "react";
+﻿import type { ReactNode, Ref } from "react";
 
 interface SplitPanelsProps {
   topRef: Ref<HTMLDivElement>;
@@ -27,17 +27,17 @@ export function SplitPanels({ topRef, bottomRef, top, bottom }: SplitPanelsProps
     <>
       <div
         ref={topRef}
-        className="loading-panel absolute inset-x-0 top-0 h-1/2 bg-[#15151e] flex flex-col items-center justify-end pb-8 overflow-hidden"
+        className="loading-panel absolute inset-x-0 top-0 h-1/2 bg-[#0C162F] flex flex-col items-center justify-end pb-8 overflow-hidden"
       >
         <GridLines />
         {top}
-        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-[#e10600]" />
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-[#E32119]" />
       </div>
       <div
         ref={bottomRef}
-        className="loading-panel absolute inset-x-0 bottom-0 h-1/2 bg-[#15151e] flex flex-col items-center justify-start pt-8 overflow-hidden"
+        className="loading-panel absolute inset-x-0 bottom-0 h-1/2 bg-[#0C162F] flex flex-col items-center justify-start pt-8 overflow-hidden"
       >
-        <div className="absolute top-0 left-0 right-0 h-[1px] bg-[#e10600]" />
+        <div className="absolute top-0 left-0 right-0 h-[1px] bg-[#E32119]" />
         {bottom}
         <GridLines />
       </div>
@@ -53,7 +53,7 @@ export function SectorTicks({ tickClass = "" }: { tickClass?: string }) {
         <span
           key={s}
           data-tick={s}
-          className="font-mono text-[9px] text-[#38383f] uppercase tracking-widest transition-colors duration-200 data-[on=true]:text-[#e10600]"
+          className="font-mono text-[9px] text-[#1e2f55] uppercase tracking-widest transition-colors duration-200 data-[on=true]:text-[#E32119]"
         >
           {s}
         </span>

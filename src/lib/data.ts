@@ -1,7 +1,7 @@
 export const ABOUT_DATA = {
   title: "Who I Am",
-  description: "Junior full-stack developer based in Indonesia. I build web applications end to end — React, Vue and Next.js on the front, Laravel and Node.js on the back — and I'm currently doing on-the-job training as a backend developer at PT FAST Indo Talenta.",
-  subDescription: "Most of my recent work is about connecting the parts: databases, APIs and AI services wired into something a person can actually use. I'm looking for a junior full-stack or backend role where I can keep learning on real systems."
+  description: "I'm a Junior Fullstack Developer driven by curiosity, problem-solving, and the desire to build technology that makes a meaningful difference. With a background in Software and Game Development, I approach challenges with a focus on understanding people's needs, creating practical solutions, and continuously improving how things work.",
+  subDescription: "I value thoughtful design, collaboration, and lifelong learning, and I strive to turn ideas into reliable digital experiences that serve real-world needs."
 };
 
 export interface ExperienceItem {

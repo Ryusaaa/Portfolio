@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
@@ -34,15 +34,15 @@ export function StartGate() {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#15151e]">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0C162F]">
       <div className="-skew-x-12">
         <button
           ref={buttonRef}
           type="button"
           onClick={start}
-          className="cursor-target relative inline-flex items-center bg-[#e10600] px-10 py-5 md:px-14 md:py-6 text-white transition-colors duration-200 hover:bg-white hover:text-[#15151e] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+          className="cursor-target relative inline-flex items-center bg-[#E32119] px-10 py-5 md:px-14 md:py-6 text-white transition-colors duration-200 hover:bg-white hover:text-[#0C162F] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
         >
-          <span aria-hidden="true" className="absolute inset-0 border border-[#e10600] opacity-40 animate-ping" />
+          <span aria-hidden="true" className="absolute inset-0 border border-[#E32119] opacity-40 animate-ping" />
           <span className="skew-x-12 inline-flex items-center gap-3 font-display text-sm md:text-base font-bold uppercase tracking-[0.25em]">
             <Volume2 size={18} aria-hidden="true" />
             Start Engine

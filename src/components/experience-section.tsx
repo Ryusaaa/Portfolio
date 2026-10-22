@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef } from "react";
 import gsap from "gsap";
@@ -33,7 +33,7 @@ export function ExperienceSection() {
   return (
     <ol ref={listRef} className="relative flex flex-col pl-6 md:pl-10 list-none">
       {/* Timeline hairline */}
-      <span aria-hidden="true" className="absolute left-[5px] top-0 bottom-0 w-px bg-[#38383f]" />
+      <span aria-hidden="true" className="absolute left-[5px] top-0 bottom-0 w-px bg-[#1e2f55]" />
       {EXPERIENCE_DATA.map((item, i) => (
         <li
           key={item.id}
@@ -42,7 +42,7 @@ export function ExperienceSection() {
         >
           <span
             aria-hidden="true"
-            className={`absolute -left-6 md:-left-10 top-[3.35rem] w-[11px] h-[11px] ${i === 0 ? "bg-[#e10600]" : "bg-[#38383f]"}`}
+            className={`absolute -left-6 md:-left-10 top-[3.35rem] w-[11px] h-[11px] ${i === 0 ? "bg-[#E32119]" : "bg-[#1e2f55]"}`}
           />
           <div className="md:w-1/3">
             <h3 className="text-2xl md:text-3xl font-display font-bold uppercase tracking-tight mb-2 text-white break-words">
@@ -55,7 +55,7 @@ export function ExperienceSection() {
           </div>
           <div className="md:w-2/3">
             <p className="text-neutral-300 leading-relaxed">{item.description}</p>
-            <div className="mt-4 inline-block text-xs font-mono uppercase border border-[#38383f] px-2 py-1 text-neutral-400">
+            <div className="mt-4 inline-block text-xs font-mono uppercase border border-[#1e2f55] px-2 py-1 text-neutral-400">
               {item.type}
             </div>
           </div>

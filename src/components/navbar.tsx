@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
@@ -75,16 +74,7 @@ export function Navbar() {
                     } ${isMenuOpen ? "text-transparent pointer-events-none" : "mix-blend-exclude text-white"}`}
             >
                 {/* Logo */}
-                <Link href="/" className={`cursor-target relative flex items-center gap-3 group z-[70] ${isMenuOpen ? "pointer-events-auto opacity-0" : "opacity-100"} transition-opacity duration-300`}>
-                    <div className="relative w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden transition-transform duration-300 group-hover:scale-105 ring-2 ring-white/10 group-hover:ring-f1-red/50">
-                        <Image
-                            src="/logo-RYS.png"
-                            alt="RYS Logo"
-                            fill
-                            className="object-cover"
-                            priority
-                        />
-                    </div>
+                <Link href="/" className={`cursor-target relative flex items-center group z-[70] ${isMenuOpen ? "pointer-events-auto opacity-0" : "opacity-100"} transition-opacity duration-300`}>
                     <span className="font-display font-bold text-lg md:text-xl uppercase tracking-tight group-hover:text-f1-red transition-colors">
                         Ryusaaa
                     </span>
@@ -124,7 +114,7 @@ export function Navbar() {
                             initial="initial"
                             animate="animate"
                             exit="exit"
-                            className="fixed right-0 top-0 w-full md:w-[500px] lg:w-[600px] h-screen bg-[#101015] z-[65] flex flex-col px-6 md:px-12 py-8 shadow-2xl border-l border-white/5"
+                            className="fixed right-0 top-0 w-full md:w-[500px] lg:w-[600px] h-screen bg-[#080f20] z-[65] flex flex-col px-6 md:px-12 py-8 shadow-2xl border-l border-white/5"
                         >
                             {/* Close Button inside Menu Panel */}
                             <div className="flex justify-end mb-8 md:mb-12">

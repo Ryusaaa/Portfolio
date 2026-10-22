@@ -58,7 +58,7 @@ export async function playSound(name: SoundName, volume = 0.7): Promise<boolean>
  * Autoplay fallback: play `name` on the first click, tap or key press, as long as that
  * happens within `maxWaitMs` of calling this. Skipped if the sound already played.
  */
-export function playOnFirstGesture(name: SoundName, maxWaitMs = 8000) {
+export function playOnFirstGesture(name: SoundName, maxWaitMs = 8000): (() => void) | undefined {
   if (typeof window === "undefined" || played[name]) return;
   const events = ["pointerdown", "keydown"] as const;
   const cleanup = () => {
@@ -71,4 +71,5 @@ export function playOnFirstGesture(name: SoundName, maxWaitMs = 8000) {
   };
   const timer = setTimeout(cleanup, maxWaitMs);
   events.forEach((e) => window.addEventListener(e, handler));
+  return cleanup;
 }

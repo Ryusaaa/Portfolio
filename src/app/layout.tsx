@@ -52,6 +52,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <head>
+        <link rel="preload" href="/sounds/F1-PASSING.mp3" as="audio" type="audio/mpeg" />
         <script dangerouslySetInnerHTML={{ __html: bootGate }} />
       </head>
       <body

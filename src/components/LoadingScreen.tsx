@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { SplitPanels, SectorTicks } from "./transition/split-panels";
@@ -34,6 +34,30 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
   const botRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const counterRef = useRef<HTMLSpanElement>(null);
+  const bootFinishedRef = useRef(false);
+  const cancelPassingFallbackRef = useRef<(() => void) | null>(null);
+
+  useLayoutEffect(() => {
+    let active = true;
+    let cancelFallback: (() => void) | undefined;
+    const cancel = () => {
+      active = false;
+      cancelFallback?.();
+      cancelFallback = undefined;
+    };
+    cancelPassingFallbackRef.current = cancel;
+
+    void playSound("passing").then((ok) => {
+      if (!ok && active && !bootFinishedRef.current) {
+        cancelFallback = playOnFirstGesture("passing", 8000);
+      }
+    });
+
+    return () => {
+      cancel();
+      if (cancelPassingFallbackRef.current === cancel) cancelPassingFallbackRef.current = null;
+    };
+  }, []);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -70,6 +94,8 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
     const finish = () => {
       if (state.done) return;
       state.done = true;
+      bootFinishedRef.current = true;
+      cancelPassingFallbackRef.current?.();
       gsap.to(proxy, { v: 100, duration: 0.25, ease: "power2.out", overwrite: true, onUpdate: paint });
       // Reveal the page just as the wipe starts.
       delete document.documentElement.dataset.boot;
@@ -98,12 +124,6 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
     }).then(() => {
       state.loaded = true;
       advance();
-    });
-
-    // Entrance sound. Browsers usually block audio before the first user gesture,
-    // so if autoplay is refused, play it on the first click/tap/key within 8 s of loading.
-    void playSound("passing").then((ok) => {
-      if (!ok) playOnFirstGesture("passing", 8000);
     });
 
     Promise.all([fontsReady, loadReady]).then(maybeFinish);

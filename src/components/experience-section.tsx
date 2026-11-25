@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import { useRef } from "react";
+import { motion, useScroll, useSpring, useReducedMotion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -11,8 +12,14 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export function ExperienceSection() {
   const listRef = useRef<HTMLOListElement>(null);
+  const reduced = useReducedMotion();
 
-  // Rows enter once, as one group (single stagger).
+  const { scrollYProgress } = useScroll({
+    target: listRef,
+    offset: ["start 80%", "end 70%"],
+  });
+  const scaleY = useSpring(scrollYProgress, { stiffness: 220, damping: 32, restDelta: 0.001 });
+
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
@@ -31,37 +38,54 @@ export function ExperienceSection() {
   );
 
   return (
-    <ol ref={listRef} className="relative flex flex-col pl-6 md:pl-10 list-none">
-      {/* Timeline hairline */}
-      <span aria-hidden="true" className="absolute left-[5px] top-0 bottom-0 w-px bg-[#1e2f55]" />
+    <ol ref={listRef} className="relative flex flex-col pl-6 md:pl-10 list-none" aria-label="Career timeline">
+      {/* Base timeline hairline */}
+      <span aria-hidden="true" className="absolute left-[5px] top-0 bottom-0 w-px bg-midnight-700" />
+      {/* Scroll-linked active progress rail */}
+      {!reduced && (
+        <motion.span
+          aria-hidden="true"
+          className="absolute left-[5px] top-0 bottom-0 w-[2px] -ml-[0.5px] bg-midnight-500 origin-top"
+          style={{ scaleY }}
+        />
+      )}
+
       {EXPERIENCE_DATA.map((item, i) => (
         <li
           key={item.id}
           data-exp-row
-          className="relative border-t border-white/10 py-12 flex flex-col md:flex-row gap-8 md:gap-16 md:px-4"
+          className="relative border-t border-midnight-700 py-12 flex flex-col md:flex-row gap-8 md:gap-16 md:px-4"
         >
+          {/* Pixel timeline node */}
           <span
             aria-hidden="true"
-            className={`absolute -left-6 md:-left-10 top-[3.35rem] w-[11px] h-[11px] ${i === 0 ? "bg-[#E32119]" : "bg-[#1e2f55]"}`}
+            className={`absolute -left-6 md:-left-10 top-[3.35rem] w-[11px] h-[11px] border ${
+              i === 0 ? "bg-midnight-500 border-midnight-300" : "bg-midnight-950 border-midnight-700"
+            }`}
           />
+
+          {/* Left: role + company */}
           <div className="md:w-1/3">
-            <h3 className="text-2xl md:text-3xl font-display font-bold uppercase tracking-tight mb-2 text-white break-words">
+            <h3 className="text-xl md:text-2xl font-display font-semibold uppercase tracking-tight mb-2 text-foreground break-words leading-tight">
               {item.role}
             </h3>
-            <p className="text-f1-red font-bold uppercase tracking-wider text-sm md:text-base mb-1 break-words">
+            <p className="text-midnight-500 font-semibold uppercase tracking-wide text-sm mb-1 break-words font-sans">
               {item.company}
             </p>
-            <p className="text-neutral-500 font-mono text-xs md:text-sm uppercase">{item.period}</p>
+            <p className="text-midnight-700 font-mono text-xs uppercase tracking-[0.15em]">{item.period}</p>
           </div>
+
+          {/* Right: description + badge */}
           <div className="md:w-2/3">
-            <p className="text-neutral-300 leading-relaxed">{item.description}</p>
-            <div className="mt-4 inline-block text-xs font-mono uppercase border border-[#1e2f55] px-2 py-1 text-neutral-400">
+            <p className="text-midnight-300 leading-relaxed text-base font-sans">{item.description}</p>
+            <div className="mt-4 inline-block font-mono text-[10px] uppercase tracking-[0.2em] border border-midnight-700 px-2 py-1 text-midnight-500">
               {item.type}
             </div>
           </div>
         </li>
       ))}
-      <li aria-hidden="true" className="border-t border-white/10" />
+
+      <li aria-hidden="true" className="border-t border-midnight-700" />
     </ol>
   );
 }

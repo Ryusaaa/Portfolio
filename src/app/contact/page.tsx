@@ -1,86 +1,103 @@
 import type { Metadata } from "next";
-import { ArrowUpRight } from "lucide-react";
-import { ContactForm } from "@/components/contact-form";
-import { FadeIn } from "@/components/ui/fade-in";
+import { ArrowUpRight, Mail } from "lucide-react";
 import { SOCIAL_LINKS } from "@/lib/data";
+import { SpotlightCard } from "@/components/ui/spotlight-card";
+import { SakugaVfxButton } from "@/components/ui/sakuga-vfx-button";
+import { AsciiSignature } from "@/components/effects/ascii-ornaments";
 
 export const metadata: Metadata = {
-  title: "Contact | Satria Ibnu Safarudin",
-  description: "Get in touch with Satria Ibnu Safarudin for junior full-stack and backend opportunities.",
+  title: "Contact | Satria Ibnu Safarudin — MIDNIGHT ARCHIVE",
+  description:
+    "Direct contact links for Satria Ibnu Safarudin — email, GitHub, and LinkedIn.",
 };
 
-const SOCIALS = [
-  { label: "GitHub", href: SOCIAL_LINKS.github },
-  { label: "LinkedIn", href: SOCIAL_LINKS.linkedin },
-  { label: "Instagram", href: SOCIAL_LINKS.instagram },
+const CHANNELS = [
+  {
+    code: "01",
+    label: "Email",
+    value: SOCIAL_LINKS.email,
+    href: `mailto:${SOCIAL_LINKS.email}`,
+    external: false,
+    note: "Best for opportunities, technical discussions, and direct inquiries.",
+  },
+  {
+    code: "02",
+    label: "GitHub",
+    value: "github.com/Ryusaaa",
+    href: SOCIAL_LINKS.github,
+    external: true,
+    note: "Source code, repositories, and project history.",
+  },
+  {
+    code: "03",
+    label: "LinkedIn",
+    value: "linkedin.com/in/satria-ibnu-safarudin",
+    href: SOCIAL_LINKS.linkedin,
+    external: true,
+    note: "Professional profile and work/training background.",
+  },
 ];
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-f1-dark">
-      <section className="relative container mx-auto px-6 pt-32 md:pt-40 pb-24 md:pb-32 overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-f1-red/5 to-transparent pointer-events-none" />
-
-        <FadeIn>
-          <div className="flex items-center gap-3 mb-6">
-            <span className="font-mono text-[10px] md:text-xs text-f1-red uppercase tracking-[0.25em]">Team Radio</span>
-            <div className="h-[1px] w-12 bg-f1-red" />
+    <div className="min-h-screen bg-midnight-950 pt-24 pb-24">
+      <div className="container mx-auto px-6">
+        <header className="mb-14">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="font-pixel text-[9px] text-midnight-500 border border-midnight-700 px-2 py-1 bg-midnight-900">
+              ARCHIVE // CONTACT
+            </span>
+            <span className="coord-label">BANDUNG, INDONESIA</span>
           </div>
-          <h1 className="font-display font-black uppercase tracking-tighter leading-[1.05] text-4xl md:text-6xl lg:text-7xl mb-4">
-            Open the <span className="text-f1-red">channel</span>
+          <h1 className="font-display font-bold text-5xl md:text-7xl uppercase tracking-tight text-archive-paper mb-4">
+            Direct <span className="text-midnight-500">Channels</span>
           </h1>
-          <p className="max-w-xl text-lg md:text-xl text-neutral-400 leading-relaxed">
-            Looking for a junior full-stack or backend developer, or just want to say hi? Send a message and I will get
-            back to you.
+          <p className="text-archive-muted text-base md:text-lg max-w-xl font-sans leading-relaxed mb-8">
+            Open to junior backend and full-stack software engineering roles. Reach out directly
+            via email or connect on GitHub and LinkedIn.
           </p>
-        </FadeIn>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 lg:gap-24 mt-16 md:mt-24">
-          <FadeIn delay={0.1} className="lg:col-span-2 flex flex-col gap-12">
-            <div>
-              <h2 className="font-mono text-neutral-500 text-sm mb-4 uppercase">Write to me</h2>
+          <SakugaVfxButton
+            variant="primary"
+            href={`mailto:${SOCIAL_LINKS.email}`}
+            external
+          >
+            <span className="inline-flex items-center gap-2">
+              <Mail size={14} aria-hidden="true" />
+              Email Satria →
+            </span>
+          </SakugaVfxButton>
+        </header>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
+          {CHANNELS.map((ch) => (
+            <SpotlightCard key={ch.code} className="p-6 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="font-pixel text-[8px] text-midnight-500">[{ch.code}]</span>
+                  <ArrowUpRight size={15} className="text-midnight-500" aria-hidden="true" />
+                </div>
+                <h2 className="font-display font-bold text-2xl uppercase text-archive-paper mb-2">
+                  {ch.label}
+                </h2>
+                <p className="text-xs text-archive-muted leading-relaxed font-sans mb-6">
+                  {ch.note}
+                </p>
+              </div>
               <a
-                href={`mailto:${SOCIAL_LINKS.email}`}
-                className="cursor-target text-xl md:text-2xl break-all hover:text-f1-red transition-colors"
+                href={ch.href}
+                target={ch.external ? "_blank" : undefined}
+                rel={ch.external ? "noopener noreferrer" : undefined}
+                className="ma-link font-mono text-xs break-all w-fit"
               >
-                {SOCIAL_LINKS.email}
+                {ch.value}
               </a>
-            </div>
-
-            <div>
-              <h2 className="font-mono text-neutral-500 text-sm mb-4 uppercase">Based in</h2>
-              <p className="text-xl md:text-2xl">Bandung, Indonesia</p>
-            </div>
-
-            <div>
-              <h2 className="font-mono text-neutral-500 text-sm mb-4 uppercase">Socials</h2>
-              <ul className="flex flex-col border-t border-white/10">
-                {SOCIALS.map((s) => (
-                  <li key={s.label} className="border-b border-white/10">
-                    <a
-                      href={s.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="cursor-target group flex items-center justify-between py-4 text-lg hover:text-f1-red transition-colors"
-                    >
-                      {s.label}
-                      <ArrowUpRight
-                        size={18}
-                        className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1"
-                        aria-hidden="true"
-                      />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </FadeIn>
-
-          <FadeIn delay={0.2} className="lg:col-span-3">
-            <ContactForm />
-          </FadeIn>
+            </SpotlightCard>
+          ))}
         </div>
-      </section>
+
+        <AsciiSignature />
+      </div>
     </div>
   );
 }

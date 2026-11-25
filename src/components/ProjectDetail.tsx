@@ -14,6 +14,7 @@ import { usePageTransition } from "./transition/page-transition-provider";
 import { DecryptedTitle } from "./transition/decrypted-title";
 import { Magnet } from "./magnetic-cta";
 import { CoverPlate } from "./cover-plate";
+import { PixelFxReveal } from "./effects/pixel-fx-reveal";
 import SplitText from "./reactbits/split-text";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -112,18 +113,18 @@ function Lightbox({ images, activeIndex, onClose, onPrev, onNext, onSelect }: Li
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
-          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90"
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-midnight-950/95"
           onClick={onClose}
         >
-          <div className="absolute top-6 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.3em] text-[#8fa0c0]">
-            FRAME <span className="text-[#E32119]">{pad(activeIndex + 1)}</span> / {pad(images.length)}
+          <div className="absolute top-6 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.3em] text-midnight-300">
+            FRAME <span className="text-midnight-500">{pad(activeIndex + 1)}</span> / {pad(images.length)}
           </div>
 
           <button
             data-close
             onClick={onClose}
             aria-label="Close lightbox"
-            className="cursor-target absolute top-5 right-6 font-mono text-[11px] uppercase tracking-widest text-[#8fa0c0] hover:text-white transition-colors flex items-center gap-2 z-10 focus-visible:outline-2 focus-visible:outline-[#E32119]"
+            className="cursor-target absolute top-5 right-6 font-mono text-[11px] uppercase tracking-widest text-midnight-300 hover:text-white transition-colors flex items-center gap-2 z-10 focus-visible:outline-2 focus-visible:outline-midnight-500"
           >
             <span className="text-base leading-none">✕</span> ESC
           </button>
@@ -131,7 +132,7 @@ function Lightbox({ images, activeIndex, onClose, onPrev, onNext, onSelect }: Li
           <button
             onClick={(e) => { e.stopPropagation(); onPrev(); }}
             aria-label="Previous image"
-            className="cursor-target absolute left-4 md:left-8 font-mono text-2xl text-[#8fa0c0] hover:text-[#E32119] transition-colors z-10 p-2 focus-visible:outline-2 focus-visible:outline-[#E32119]"
+            className="cursor-target absolute left-4 md:left-8 font-mono text-2xl text-midnight-300 hover:text-midnight-500 transition-colors z-10 p-2 focus-visible:outline-2 focus-visible:outline-midnight-500"
           >
             ←
           </button>
@@ -142,7 +143,7 @@ function Lightbox({ images, activeIndex, onClose, onPrev, onNext, onSelect }: Li
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25, ease: EASE }}
-            className="relative w-[90vw] max-w-5xl aspect-video border border-[#1e2f55] bg-[#111d3e]"
+            className="relative w-[90vw] max-w-5xl aspect-video border border-midnight-700 bg-midnight-900"
             onClick={(e) => e.stopPropagation()}
           >
             <Image
@@ -154,15 +155,15 @@ function Lightbox({ images, activeIndex, onClose, onPrev, onNext, onSelect }: Li
               priority
             />
             <div className="absolute bottom-0 left-0 right-0 px-4 py-2 flex items-center justify-between">
-              <span className="font-mono text-[9px] text-[#E32119] tracking-widest">FRAME {pad(activeIndex + 1)}</span>
-              <span className="font-mono text-[9px] text-[#8fa0c0] tracking-widest">USE ← → TO NAVIGATE</span>
+              <span className="font-mono text-[9px] text-midnight-500 tracking-widest">FRAME {pad(activeIndex + 1)}</span>
+              <span className="font-mono text-[9px] text-midnight-300 tracking-widest">USE ← → TO NAVIGATE</span>
             </div>
           </motion.div>
 
           <button
             onClick={(e) => { e.stopPropagation(); onNext(); }}
             aria-label="Next image"
-            className="cursor-target absolute right-4 md:right-8 font-mono text-2xl text-[#8fa0c0] hover:text-[#E32119] transition-colors z-10 p-2 focus-visible:outline-2 focus-visible:outline-[#E32119]"
+            className="cursor-target absolute right-4 md:right-8 font-mono text-2xl text-midnight-300 hover:text-midnight-500 transition-colors z-10 p-2 focus-visible:outline-2 focus-visible:outline-midnight-500"
           >
             →
           </button>
@@ -177,8 +178,8 @@ function Lightbox({ images, activeIndex, onClose, onPrev, onNext, onSelect }: Li
                 onClick={() => onSelect(i)}
                 aria-label={`Go to frame ${i + 1}`}
                 aria-current={i === activeIndex}
-                className={`cursor-target relative flex-shrink-0 w-14 h-9 border bg-[#111d3e] overflow-hidden transition-opacity duration-200 focus-visible:outline-2 focus-visible:outline-[#E32119] ${
-                  i === activeIndex ? "border-[#E32119] opacity-100" : "border-[#1e2f55] opacity-40 hover:opacity-70"
+                className={`cursor-target relative flex-shrink-0 w-14 h-9 border bg-midnight-900 overflow-hidden transition-opacity duration-200 focus-visible:outline-2 focus-visible:outline-midnight-500 ${
+                  i === activeIndex ? "border-midnight-500 opacity-100" : "border-midnight-700 opacity-40 hover:opacity-70"
                 }`}
               >
                 <Image src={src} alt="" fill className="object-cover" sizes="56px" />
@@ -199,7 +200,7 @@ function ScrollProgress() {
   return (
     <motion.div
       aria-hidden="true"
-      className="fixed top-0 left-0 right-0 h-[2px] bg-[#E32119] origin-left z-[70] pointer-events-none"
+      className="fixed top-0 left-0 right-0 h-[2px] bg-midnight-500 origin-left z-[70] pointer-events-none"
       style={{ scaleX: scrollYProgress }}
     />
   );
@@ -212,14 +213,14 @@ function Breadcrumb({ project, index }: { project: Project; index: number }) {
       <TransitionLink
         href={`/#work-${project.slug}`}
         transition={{ index, title: "Selected Works", waitForCover: false }}
-        className="cursor-target back-btn group text-[#8fa0c0] hover:text-white transition-colors duration-200"
+        className="cursor-target back-btn group text-midnight-300 hover:text-white transition-colors duration-200"
       >
         <span className="inline-block transition-transform duration-200 group-hover:-translate-x-1">←</span>
         Selected Works
       </TransitionLink>
-      <span aria-hidden="true" className="text-[#1e2f55]">/</span>
-      <span className="text-[#8fa0c0]" aria-current="page">
-        <span className="text-[#E32119]">P{index + 1}</span> — {project.title}
+      <span aria-hidden="true" className="text-[#3a506b]">/</span>
+      <span className="text-midnight-300" aria-current="page">
+        <span className="text-midnight-500">P{index + 1}</span> — {project.title}
       </span>
     </nav>
   );
@@ -228,8 +229,8 @@ function Breadcrumb({ project, index }: { project: Project; index: number }) {
 /* ── Hero ────────────────────────────────────────────── */
 function HeroSection({ project, index }: { project: Project; index: number }) {
   return (
-    <section className="relative min-h-[60vh] flex flex-col justify-end bg-[#0C162F] border-b border-[#1e2f55] overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 h-[1px] bg-[#E32119]" />
+    <section className="relative min-h-[60vh] flex flex-col justify-end bg-midnight-950 border-b border-midnight-700 overflow-hidden">
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-midnight-500" />
       <div className="absolute inset-0 pointer-events-none">
         {Array.from({ length: 6 }).map((_, i) => (
           <div key={i} className="absolute top-0 bottom-0 border-l border-white/[0.03]" style={{ left: `${(i + 1) * (100 / 7)}%` }} />
@@ -244,10 +245,13 @@ function HeroSection({ project, index }: { project: Project; index: number }) {
         <Breadcrumb project={project} index={index} />
 
         <div className="flex items-center gap-3 mb-6">
-          <span className="font-mono text-[10px] text-[#E32119] uppercase tracking-[0.25em]">
-            <DecryptedTitle text="PROJECT TELEMETRY" className="font-mono text-[10px] uppercase tracking-[0.25em]" />
+          <span className="font-pixel text-[8px] text-midnight-500 border border-midnight-700 px-2 py-1 bg-midnight-900">
+            P{pad(index + 1)}
           </span>
-          <div className="h-[1px] w-12 bg-[#E32119]" />
+          <span className="font-mono text-[10px] text-midnight-500 uppercase tracking-[0.25em]">
+            <DecryptedTitle text="ARCHIVE RECORD" className="font-mono text-[10px] uppercase tracking-[0.25em]" />
+          </span>
+          <div className="h-[1px] w-12 bg-midnight-500" />
         </div>
 
         <SplitText
@@ -264,7 +268,7 @@ function HeroSection({ project, index }: { project: Project; index: number }) {
         />
 
         <motion.div
-          className="h-[2px] bg-[#E32119] mb-6 origin-left"
+          className="h-[2px] bg-midnight-500 mb-6 origin-left"
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ delay: 0.7, duration: 0.8, ease: EASE }}
@@ -280,19 +284,19 @@ function HeroSection({ project, index }: { project: Project; index: number }) {
             <p className="font-mono text-[10px] md:text-xs uppercase tracking-[0.25em] text-white/80 mb-1">Role</p>
             <p className="font-mono text-sm md:text-base text-white">{project.role}</p>
           </div>
-          <div className="hidden sm:block w-[1px] h-8 bg-[#1e2f55]" />
+          <div className="hidden sm:block w-[1px] h-8 bg-midnight-700" />
           <div>
             <p className="font-mono text-[10px] md:text-xs uppercase tracking-[0.25em] text-white/80 mb-1">Year</p>
             <p className="font-mono text-sm md:text-base text-white">{project.year}</p>
           </div>
-          <div className="hidden sm:block w-[1px] h-8 bg-[#1e2f55]" />
+          <div className="hidden sm:block w-[1px] h-8 bg-midnight-700" />
           <div>
             <p className="font-mono text-[10px] md:text-xs uppercase tracking-[0.25em] text-white/80 mb-1">Stack</p>
-            <p className="font-mono text-sm md:text-base text-[#E32119]">{pad(project.tags.length)} MODULES</p>
+            <p className="font-mono text-sm md:text-base text-midnight-500">{pad(project.tags.length)} MODULES</p>
           </div>
           {project.detailImages && project.detailImages.length > 0 && (
             <>
-              <div className="hidden sm:block w-[1px] h-8 bg-[#1e2f55]" />
+              <div className="hidden sm:block w-[1px] h-8 bg-midnight-700" />
               <div>
                 <p className="font-mono text-[10px] md:text-xs uppercase tracking-[0.25em] text-white/80 mb-1">Frames</p>
                 <p className="font-mono text-sm md:text-base text-white">{pad(project.detailImages.length)}</p>
@@ -356,26 +360,28 @@ function CoverSection({ project, index }: { project: Project; index: number }) {
   );
 
   return (
-    <div ref={imgWrapRef} className="relative w-full aspect-[16/7] overflow-hidden border-b border-[#1e2f55] bg-[#111d3e]">
-      <div data-cover-inner className="absolute inset-0">
-        {project.aestheticImage ? (
-          <>
-            <Image
-              src={project.aestheticImage}
-              alt={`${project.title} aesthetic`}
-              fill
-              priority
-              sizes="100vw"
-              onLoad={(e) => void report(e.currentTarget)}
-              onError={() => void report(null)}
-              className="object-cover opacity-0 transition-opacity duration-[250ms] data-[loaded=true]:opacity-100"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0C162F]/60 via-transparent to-[#0C162F]/20" />
-          </>
-        ) : (
-          <CoverPlate title={project.title} index={index} />
-        )}
-      </div>
+    <div ref={imgWrapRef} className="relative w-full aspect-[16/7] overflow-hidden border-b border-midnight-700 bg-midnight-900">
+      <PixelFxReveal trigger="inView" seed={index + 1} className="w-full h-full">
+        <div data-cover-inner className="relative w-full h-full">
+          {project.aestheticImage ? (
+            <>
+              <Image
+                src={project.aestheticImage}
+                alt={`${project.title} aesthetic`}
+                fill
+                priority
+                sizes="100vw"
+                onLoad={(e) => void report(e.currentTarget)}
+                onError={() => void report(null)}
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0b132b]/60 via-transparent to-[#0b132b]/20" />
+            </>
+          ) : (
+            <CoverPlate title={project.title} index={index} />
+          )}
+        </div>
+      </PixelFxReveal>
     </div>
   );
 }
@@ -383,15 +389,15 @@ function CoverSection({ project, index }: { project: Project; index: number }) {
 /* ── Section shell ───────────────────────────────────── */
 function SectionShell({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <section className="border-b border-[#1e2f55]">
+    <section className="border-b border-midnight-700">
       <div className="container mx-auto px-6 md:px-12 py-16 md:py-24">
         <div className="grid grid-cols-1 md:grid-cols-[80px_1fr] gap-8 md:gap-16">
           <div className="hidden md:flex items-start justify-center pt-1">
-            <span className="writing-vertical font-mono text-[10px] uppercase tracking-[0.3em] text-[#E32119] select-none">{label}</span>
+            <span className="writing-vertical font-mono text-[10px] uppercase tracking-[0.3em] text-midnight-500 select-none">{label}</span>
           </div>
           <div className="md:hidden flex items-center gap-3 mb-2">
-            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#E32119]">{label}</span>
-            <div className="h-[1px] flex-1 bg-[#1e2f55]" />
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-midnight-500">{label}</span>
+            <div className="h-[1px] flex-1 bg-midnight-700" />
           </div>
           <div>{children}</div>
         </div>
@@ -411,7 +417,7 @@ function ConceptSection({ project }: { project: Project }) {
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="font-sans text-base md:text-lg text-[#8fa0c0] leading-relaxed max-w-3xl"
+          className="font-sans text-base md:text-lg text-midnight-300 leading-relaxed max-w-3xl"
           aria-label={project.description}
         >
           {words.map((word, i) => (
@@ -432,12 +438,12 @@ function TechStackSection({ project }: { project: Project }) {
     <SectionShell label="STACK">
       <div ref={ref}>
         <div className="flex items-center gap-4 mb-8">
-          <h2 className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8fa0c0]">Tech Modules</h2>
-          <div className="h-[1px] flex-1 bg-[#1e2f55]" />
+          <h2 className="font-mono text-[10px] uppercase tracking-[0.25em] text-midnight-300">Tech Modules</h2>
+          <div className="h-[1px] flex-1 bg-midnight-700" />
         </div>
         <motion.div variants={containerVariants} initial="hidden" animate={inView ? "visible" : "hidden"} className="flex flex-wrap gap-3">
           {project.tags.map((tag) => (
-            <motion.span key={tag} variants={badgeVariants} className="sector-badge">
+            <motion.span key={tag} variants={badgeVariants} className="ma-badge">
               {tag}
             </motion.span>
           ))}
@@ -453,9 +459,9 @@ function RepoLink({ href, label }: { href: string; label: string }) {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="cursor-target group flex items-center gap-4 font-mono text-sm uppercase tracking-widest text-[#8fa0c0] hover:text-[#E32119] transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E32119]"
+      className="cursor-target group flex items-center gap-4 font-mono text-sm uppercase tracking-widest text-midnight-300 hover:text-midnight-500 transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-midnight-500"
     >
-      <span className="block w-8 h-[1px] bg-[#1e2f55] transition-colors duration-300 group-hover:bg-[#E32119]" />
+      <span className="block w-8 h-[1px] bg-midnight-700 transition-colors duration-300 group-hover:bg-midnight-500" />
       <span>{label}</span>
       <span className="transition-transform duration-300 group-hover:translate-x-1">↗</span>
     </Link>
@@ -467,8 +473,8 @@ function LinksSection({ project }: { project: Project }) {
   return (
     <SectionShell label="LINKS">
       <div className="flex items-center gap-4 mb-8">
-        <h2 className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8fa0c0]">Repositories</h2>
-        <div className="h-[1px] flex-1 bg-[#1e2f55]" />
+        <h2 className="font-mono text-[10px] uppercase tracking-[0.25em] text-midnight-300">Repositories</h2>
+        <div className="h-[1px] flex-1 bg-midnight-700" />
       </div>
       <div className="flex flex-col sm:flex-row gap-6">
         {project.githubFrontend && <RepoLink href={project.githubFrontend} label="Frontend Repo" />}
@@ -484,10 +490,10 @@ function GalleryFrame({ src, i, onOpen }: { src: string; i: number; onOpen: (i: 
     <button
       onClick={(e) => onOpen(i, e.currentTarget)}
       aria-label={`Open frame ${i + 1} in full view`}
-      className="cursor-target relative flex-shrink-0 w-[280px] md:w-[400px] aspect-video overflow-hidden border border-[#1e2f55] bg-[#111d3e] group cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E32119]"
+      className="cursor-target relative flex-shrink-0 w-[280px] md:w-[400px] aspect-video overflow-hidden border border-midnight-700 bg-midnight-900 group cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-midnight-500"
     >
       {!loaded && (
-        <span className="absolute inset-0 flex items-center justify-center font-mono text-[10px] tracking-[0.3em] text-[#1e2f55]">
+        <span className="absolute inset-0 flex items-center justify-center font-mono text-[10px] tracking-[0.3em] text-[#3a506b]">
           FRAME {pad(i + 1)}
         </span>
       )}
@@ -499,7 +505,7 @@ function GalleryFrame({ src, i, onOpen }: { src: string; i: number; onOpen: (i: 
         onLoad={() => setLoaded(true)}
         className={`object-cover transition-[opacity,transform] duration-[250ms] group-hover:scale-[1.03] ${loaded ? "opacity-100" : "opacity-0"}`}
       />
-      <span className="absolute bottom-0 left-0 px-3 py-2 font-mono text-[9px] text-[#E32119] tracking-widest">
+      <span className="absolute bottom-0 left-0 px-3 py-2 font-mono text-[9px] text-midnight-500 tracking-widest">
         FRAME {pad(i + 1)}
       </span>
     </button>
@@ -527,12 +533,12 @@ function GallerySection({ images }: { images: string[] }) {
   return (
     <>
       <Lightbox images={images} activeIndex={active} onClose={close} onPrev={prev} onNext={next} onSelect={setActive} />
-      <section className="border-b border-[#1e2f55]">
+      <section className="border-b border-midnight-700">
         <div className="container mx-auto px-6 md:px-12 py-16 md:py-24">
           <div className="flex items-center gap-4 mb-8">
-            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#E32119]">Gallery</span>
-            <div className="h-[1px] flex-1 bg-[#1e2f55]" />
-            <span className="font-mono text-[10px] text-[#8fa0c0]">{pad(images.length)} FRAMES</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-midnight-500">Gallery</span>
+            <div className="h-[1px] flex-1 bg-midnight-700" />
+            <span className="font-mono text-[10px] text-midnight-300">{pad(images.length)} FRAMES</span>
           </div>
           <motion.div
             ref={ref}
@@ -545,7 +551,7 @@ function GallerySection({ images }: { images: string[] }) {
               <GalleryFrame key={src} src={src} i={i} onOpen={open} />
             ))}
           </motion.div>
-          <p className="mt-4 font-mono text-[9px] uppercase tracking-[0.2em] text-[#8fa0c0]">Click any frame to expand</p>
+          <p className="mt-4 font-mono text-[9px] uppercase tracking-[0.2em] text-midnight-300">Click any frame to expand</p>
         </div>
       </section>
     </>
@@ -555,16 +561,16 @@ function GallerySection({ images }: { images: string[] }) {
 /* ── Next project end card ───────────────────────────── */
 function NextProject({ next }: { next: ProjectDetailProps["next"] }) {
   return (
-    <section className="border-t border-[#1e2f55]">
+    <section className="border-t border-midnight-700">
       <div className="container mx-auto px-6 md:px-12 py-16 md:py-24">
         <div className="flex items-center justify-between mb-8">
-          <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8fa0c0]">
-            Next — <span className="text-[#E32119]">P{next.index + 1}</span>
+          <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-midnight-300">
+            Next — <span className="text-midnight-500">P{next.index + 1}</span>
           </p>
           <TransitionLink
             href="/#projects"
             transition={{ title: "Selected Works", waitForCover: false }}
-            className="cursor-target font-mono text-[10px] uppercase tracking-[0.25em] text-[#8fa0c0] hover:text-white transition-colors"
+            className="cursor-target font-mono text-[10px] uppercase tracking-[0.25em] text-midnight-300 hover:text-white transition-colors"
           >
             Back to all works
           </TransitionLink>
@@ -574,13 +580,13 @@ function NextProject({ next }: { next: ProjectDetailProps["next"] }) {
           transition={{ index: next.index, title: next.title, waitForCover: true }}
           aria-label={`Next project: ${next.title}`}
           data-cursor-label="NEXT"
-          className="cursor-target group block border-t border-[#1e2f55] pt-8 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E32119]"
+          className="cursor-target group block border-t border-midnight-700 pt-8 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-midnight-500"
         >
           <h2 className="font-display font-bold uppercase tracking-tight text-3xl sm:text-4xl md:text-6xl leading-none text-white break-words mb-8">
             {next.title}
           </h2>
           <Magnet padding={40} maxOffset={6} wrapperClassName="inline-block">
-            <span className="inline-flex items-center gap-2 font-mono text-sm uppercase tracking-widest px-5 py-3 border border-[#E32119] text-white transition-colors duration-[220ms] group-hover:bg-[#E32119] group-focus-visible:bg-[#E32119]">
+            <span className="inline-flex items-center gap-2 font-mono text-sm uppercase tracking-widest px-5 py-3 border border-midnight-500 text-white transition-colors duration-[220ms] group-hover:bg-midnight-500 group-focus-visible:bg-midnight-500">
               Next Project
               <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span>
             </span>
@@ -598,7 +604,7 @@ export function ProjectDetail({ project, index, next }: ProjectDetailProps) {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: EASE }}
-      className="min-h-screen bg-[#0C162F] text-white"
+      className="min-h-screen bg-midnight-950 text-white"
     >
       <ScrollProgress />
       <HeroSection project={project} index={index} />
@@ -611,3 +617,4 @@ export function ProjectDetail({ project, index, next }: ProjectDetailProps) {
     </motion.article>
   );
 }
+

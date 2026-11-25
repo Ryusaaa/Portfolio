@@ -1,82 +1,117 @@
-
-import { Hero } from "@/components/hero";
-import { ToolsStrip } from "@/components/tools-strip";
-import { ExperienceSection } from "@/components/experience-section";
-import { ProjectShowcase } from "@/components/project-showcase";
-import { ABOUT_DATA } from "@/lib/data";
 import Link from "next/link";
-import { FadeIn } from "@/components/ui/fade-in";
+import { Hero } from "@/components/hero";
+import { FeaturedShowcase } from "@/components/dashboard/featured-showcase";
+import { ToolsStrip } from "@/components/tools-strip";
+import { SpotlightCard } from "@/components/ui/spotlight-card";
+import { AsciiRule } from "@/components/effects/ascii-ornaments";
+import { EXPERIENCE_DATA, PROJECTS_DATA } from "@/lib/data";
+
+const ARCHIVE_MODULES = [
+  {
+    code: "01",
+    title: "Projects",
+    summary: `${PROJECTS_DATA.length} documented systems & applications across backend, web, and game dev.`,
+    href: "/projects",
+    cta: "Browse Archive →",
+  },
+  {
+    code: "02",
+    title: "Experience",
+    summary: `${EXPERIENCE_DATA.length} roles & vocational training placements (PT FAST Indo Talenta, BBPVP Bandung, PT DiAntara).`,
+    href: "/experience",
+    cta: "View Timeline →",
+  },
+  {
+    code: "03",
+    title: "About",
+    summary: "PPLG background, backend & security engineering focus, and technical discipline breakdown.",
+    href: "/about",
+    cta: "Read Profile →",
+  },
+  {
+    code: "04",
+    title: "Contact",
+    summary: "Direct email, GitHub, and LinkedIn channels for junior backend & full-stack roles.",
+    href: "/contact",
+    cta: "Open Channel →",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-f1-dark pb-0">
+    <div className="min-h-screen bg-midnight-950">
       <Hero />
 
-      {/* 02 - About Section */}
-      <section id="about" className="py-24 md:py-32 container mx-auto px-6">
-        <FadeIn>
-          <div className="flex flex-col md:flex-row gap-12 md:gap-24">
-            <div className="md:w-1/4">
-              <span className="text-f1-red font-mono text-xl font-bold">02</span>
-            </div>
-            <div className="md:w-3/4">
-              <h2 className="text-3xl md:text-5xl font-display font-medium uppercase tracking-tight leading-tight mb-8">
-                {ABOUT_DATA.title}
-              </h2>
-              <div className="space-y-6 text-lg md:text-xl text-neutral-400 leading-relaxed max-w-2xl">
-                <p>{ABOUT_DATA.description}</p>
-                <p>{ABOUT_DATA.subDescription}</p>
-              </div>
+      <AsciiRule label="INDEX" className="my-4" />
 
-              <div className="mt-12">
-                <Link
-                  href="/#projects"
-                  className="inline-block text-white border-b border-f1-red pb-1 font-mono uppercase text-sm hover:text-f1-red transition-colors"
-                >
-                  View Projects
-                </Link>
+      {/* 21st.dev SpotlightCard Archive Directory */}
+      <section aria-label="Archive overview" className="container mx-auto px-6 py-16 md:py-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {ARCHIVE_MODULES.map((mod) => (
+            <SpotlightCard key={mod.code} className="p-6 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="font-pixel text-[9px] text-midnight-500">[{mod.code}]</span>
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-midnight-500">
+                    MODULE
+                  </span>
+                </div>
+                <h2 className="font-display font-bold text-2xl uppercase tracking-tight text-archive-paper mb-2">
+                  {mod.title}
+                </h2>
+                <p className="text-xs text-archive-muted leading-relaxed font-sans mb-6">
+                  {mod.summary}
+                </p>
               </div>
-            </div>
-          </div>
-        </FadeIn>
+              <Link
+                href={mod.href}
+                className="ma-link font-mono text-[11px] uppercase tracking-[0.18em] w-fit"
+              >
+                {mod.cta}
+              </Link>
+            </SpotlightCard>
+          ))}
+        </div>
       </section>
 
-      {/* 03 - Projects Section */}
-      <section id="projects" className="py-24 md:py-32 container mx-auto px-6">
-        <FadeIn delay={0.2}>
-          <div className="flex flex-col md:flex-row gap-12 md:gap-24 mb-16">
-            <div className="md:w-1/4">
-              <span className="text-f1-red font-mono text-xl font-bold">03</span>
-            </div>
-            <div className="md:w-3/4">
-              <h2 className="text-4xl md:text-6xl font-display font-bold uppercase tracking-tighter">
-                Selected <span className="text-neutral-500">Works</span>
-              </h2>
-            </div>
-          </div>
+      <AsciiRule label="WORK" />
 
-          <ProjectShowcase />
-        </FadeIn>
-      </section>
+      {/* React Bits + PixelFX Featured Showcase */}
+      <FeaturedShowcase />
 
       <ToolsStrip />
 
-      {/* 04 - Experience Section */}
-      <section id="experience" className="py-24 md:py-32 container mx-auto px-6">
-        <FadeIn delay={0.2}>
-          <div className="flex flex-col md:flex-row gap-12 md:gap-24 mb-16">
-            <div className="md:w-1/4">
-              <span className="text-f1-red font-mono text-xl font-bold">04</span>
-            </div>
-            <div className="md:w-3/4">
-              <h2 className="text-4xl md:text-6xl font-display font-bold uppercase tracking-tighter">
-                Expe<span className="text-neutral-500">rience</span>
-              </h2>
-            </div>
+      {/* Compact Experience Preview */}
+      <section aria-label="Recent experience" className="container mx-auto px-6 py-20">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+          <div>
+            <span className="font-pixel text-[9px] text-midnight-500 block mb-3">
+              [03 // EXPERIENCE]
+            </span>
+            <h2 className="font-display font-bold text-3xl md:text-5xl uppercase tracking-tight text-archive-paper">
+              Career <span className="text-midnight-500">Record</span>
+            </h2>
           </div>
+          <Link href="/experience" className="ma-link font-mono text-xs uppercase tracking-[0.2em] w-fit">
+            Full Timeline →
+          </Link>
+        </div>
 
-          <ExperienceSection />
-        </FadeIn>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {EXPERIENCE_DATA.map((item, i) => (
+            <div key={item.id} className="border border-midnight-700 bg-midnight-900/40 p-6">
+              <div className="flex items-center justify-between mb-3">
+                <span className="font-pixel text-[8px] text-midnight-500">0{i + 1}</span>
+                <span className="font-mono text-[10px] uppercase text-midnight-500">{item.type}</span>
+              </div>
+              <h3 className="font-display font-semibold text-lg uppercase tracking-tight text-archive-paper mb-1">
+                {item.role}
+              </h3>
+              <p className="font-mono text-xs text-midnight-300 mb-3">{item.company}</p>
+              <p className="font-mono text-[10px] text-midnight-500 uppercase">{item.period}</p>
+            </div>
+          ))}
+        </div>
       </section>
     </div>
   );

@@ -111,12 +111,12 @@ export async function getRepoReadme(slug: string): Promise<string | null> {
             return atob(res.content);
         }
         return res.content;
-    } catch (e) {
+    } catch {
         return null;
     }
 }
 
 export async function getRecentActivity() {
-    const activity = await safeFetchGithub<any[]>(`/users/${GITHUB_USERNAME}/events?per_page=20`, 600);
+    const activity = await safeFetchGithub<Record<string, unknown>[]>(`/users/${GITHUB_USERNAME}/events?per_page=20`, 600);
     return activity || [];
 }

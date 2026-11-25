@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Vendored MIT third-party vanilla JS runtimes:
+    "src/lib/pixelfx/**",
+    "src/lib/sakuga/**",
   ]),
 ]);
 

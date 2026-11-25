@@ -1,18 +1,12 @@
 "use client";
 
-import { useCallback, useSyncExternalStore } from "react";
-import { LoadingScreen } from "./LoadingScreen";
-import { markBootSeen, shouldShowBoot, subscribeBoot } from "@/lib/boot";
+import { ScrollProgress } from "./ui/scroll-progress";
 
 export function ClientWrapper({ children }: { children: React.ReactNode }) {
-  const showBoot = useSyncExternalStore(subscribeBoot, shouldShowBoot, () => false);
-
-  const handleComplete = useCallback(() => markBootSeen(), []);
-
   return (
     <>
+      <ScrollProgress />
       {children}
-      {showBoot && <LoadingScreen onComplete={handleComplete} />}
     </>
   );
 }

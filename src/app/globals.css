@@ -1,75 +1,87 @@
 @import "tailwindcss";
 
 :root {
-  /* Red Bull Palette */
-  --background: #0C162F;
-  --foreground: #FFFFFF;
+  /* ── MIDNIGHT ARCHIVE palette ── */
+  --midnight-950: #0b132b;
+  --midnight-900: #1c2541;
+  --midnight-700: #3a506b;
+  --midnight-500: #557a95;
+  --midnight-300: #829ab1;
+  --archive-paper: #e8edf2;
+  --archive-muted: #aebdca;
 
-  --card: #111d3e;
-  --card-foreground: #FFFFFF;
+  /* Semantic roles */
+  --background:           var(--midnight-950);
+  --foreground:           var(--archive-paper);
+  --card:                 var(--midnight-900);
+  --card-foreground:      var(--archive-paper);
+  --primary:              var(--midnight-500);
+  --primary-foreground:   var(--archive-paper);
+  --secondary:            var(--midnight-900);
+  --secondary-foreground: var(--archive-paper);
+  --muted:                var(--midnight-900);
+  --muted-foreground:     var(--midnight-300);
+  --accent:               var(--midnight-500);
+  --accent-foreground:    var(--archive-paper);
+  --border:               var(--midnight-700);
 
-  --primary: #E32119;
-  --primary-foreground: #FFFFFF;
+  /* Typography */
+  --font-display: "Clash Display", "Arial Black", Arial, sans-serif;
+  --font-body:    var(--font-sans);
+  --font-mono:    var(--font-mono-var, "Geist Mono", "SFMono-Regular", ui-monospace, monospace);
+  --font-pixel:   var(--font-pixel-var, "Press Start 2P", monospace);
 
-  --secondary: #162040;
-  --secondary-foreground: #FFFFFF;
-
-  --muted: #162040;
-  --muted-foreground: #8fa0c0;
-
-  --accent: #FFCC00;
-  --accent-foreground: #0C162F;
-
-  --border: #1e2f55;
-
-  /* Red Bull Custom Variables (keeping f1- prefix for Tailwind compat) */
-  --f1-red: #E32119;
-  --f1-dark: #0C162F;
-  --f1-gray-dark: #111d3e;
-  --f1-gray: #1e2f55;
-  --f1-silver: #8fa0c0;
-
-  /* Extra RB tokens */
-  --rb-yellow: #FFCC00;
-  --rb-navy: #0C162F;
-  --rb-navy-mid: #111d3e;
+  /* Sakuga VFX Midnight Archive theme tokens */
+  --sk-card:     var(--midnight-900);
+  --sk-ink:      var(--archive-paper);
+  --sk-dim:      var(--midnight-300);
+  --sk-soft:     var(--midnight-700);
+  --sk-pri:      var(--midnight-500);
+  --sk-pri-ink:  var(--archive-paper);
+  --sk-acc:      var(--midnight-500);
+  --sk-track:    var(--midnight-700);
+  --sk-r:        0px;
+  --sk-bw:       1px;
+  --sk-sh:       3px 3px 0 var(--midnight-700);
+  --sk-btn-sh:   var(--sk-sh);
+  --sk-btn-line: var(--midnight-500);
+  --sk-alt-sh:   none;
+  --sk-alt-line: var(--midnight-700);
+  --sk-tick:     var(--midnight-300);
+  --sk-fill:     var(--midnight-500);
+  --sk-on-pri:   var(--archive-paper);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
+  --color-background:           var(--background);
+  --color-foreground:           var(--foreground);
+  --color-card:                 var(--card);
+  --color-card-foreground:      var(--card-foreground);
+  --color-primary:              var(--primary);
+  --color-primary-foreground:   var(--primary-foreground);
+  --color-secondary:            var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-border: var(--border);
+  --color-muted:                var(--muted);
+  --color-muted-foreground:     var(--muted-foreground);
+  --color-accent:               var(--accent);
+  --color-accent-foreground:    var(--accent-foreground);
+  --color-border:               var(--border);
 
-  --color-f1-red: var(--f1-red);
-  --color-f1-dark: var(--f1-dark);
-  --color-f1-gray: var(--f1-gray);
-  --color-f1-gray-dark: var(--f1-gray-dark);
-  --color-f1-silver: var(--f1-silver);
-  --color-rb-yellow: var(--rb-yellow);
-  --color-rb-navy: var(--rb-navy);
-  --color-rb-navy-mid: var(--rb-navy-mid);
+  --color-midnight-950:  var(--midnight-950);
+  --color-midnight-900:  var(--midnight-900);
+  --color-midnight-700:  var(--midnight-700);
+  --color-midnight-500:  var(--midnight-500);
+  --color-midnight-300:  var(--midnight-300);
+  --color-archive-paper: var(--archive-paper);
+  --color-archive-muted: var(--archive-muted);
 
-  --font-sans: var(--font-sans);
+  --font-sans:    var(--font-sans);
   --font-display: var(--font-display);
+  --font-pixel:   var(--font-pixel);
 }
 
 html {
   scroll-behavior: smooth;
-}
-
-/* Boot gate: set by an inline script in layout.tsx before first paint, removed by the overlay. */
-html[data-boot="pending"] body > *:not([data-boot-overlay]) {
-  visibility: hidden;
 }
 
 body {
@@ -79,98 +91,101 @@ body {
   overflow-x: hidden;
 }
 
-/* Utilities */
+/* ── Typography utilities ──────────────────────────────────────── */
 .font-display {
   font-family: var(--font-display);
 }
 
-.bg-checkered {
+.font-pixel {
+  font-family: var(--font-pixel);
+  letter-spacing: 0.08em;
+}
+
+/* ── MIDNIGHT ARCHIVE: subtle pixel grid & dither textures ───── */
+.bg-midnight-grid {
   background-image:
-    linear-gradient(45deg, #1f1f28 25%, transparent 25%),
-    linear-gradient(-45deg, #1f1f28 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, #1f1f28 75%),
-    linear-gradient(-45deg, transparent 75%, #1f1f28 75%);
+    linear-gradient(var(--midnight-900) 1px, transparent 1px),
+    linear-gradient(90deg, var(--midnight-900) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.3;
+}
+
+.bg-pixel-dots {
+  background-image: radial-gradient(var(--midnight-700) 1px, transparent 1px);
   background-size: 20px 20px;
-  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-  opacity: 0.1;
+  opacity: 0.18;
 }
 
-.text-stroke {
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
-  color: transparent;
-}
-
-/* Responsive text-stroke for mobile */
-@media (max-width: 768px) {
-  .text-stroke {
-    -webkit-text-stroke: 0.5px rgba(255, 255, 255, 0.1);
+/* ── Custom Pixel/ASCII cursor hides native cursor only on fine pointers when active ── */
+@media (hover: hover) and (pointer: fine) {
+  html.pixel-cursor-active,
+  html.pixel-cursor-active a,
+  html.pixel-cursor-active button,
+  html.pixel-cursor-active [role="button"] {
+    cursor: none !important;
+  }
+  html.pixel-cursor-active input,
+  html.pixel-cursor-active textarea,
+  html.pixel-cursor-active select {
+    cursor: text !important;
   }
 }
 
-/* ─── Project Detail Gallery Scrollbar ─────────────────────── */
+/* ── Scroll progress bar ─────────────────────────────────────── */
+.ma-progress-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--midnight-500);
+  transform-origin: left;
+  z-index: 999;
+  pointer-events: none;
+}
+
+/* ── Project Gallery Scrollbar ───────────────────────────────── */
 .gallery-scroll {
   overflow-x: auto;
   scrollbar-width: thin;
-  scrollbar-color: var(--f1-red) var(--f1-dark);
+  scrollbar-color: var(--midnight-500) var(--midnight-950);
 }
+.gallery-scroll::-webkit-scrollbar { height: 3px; }
+.gallery-scroll::-webkit-scrollbar-track { background: var(--midnight-950); }
+.gallery-scroll::-webkit-scrollbar-thumb { background: var(--midnight-500); }
 
-.gallery-scroll::-webkit-scrollbar {
-  height: 3px;
-}
-
-.gallery-scroll::-webkit-scrollbar-track {
-  background: var(--f1-dark);
-}
-
-.gallery-scroll::-webkit-scrollbar-thumb {
-  background: var(--f1-red);
-}
-
-/* ─── Vertical writing mode for section labels ──────────────── */
+/* ── Vertical writing mode ───────────────────────────────────── */
 .writing-vertical {
   writing-mode: vertical-rl;
   text-orientation: mixed;
   transform: rotate(180deg);
 }
 
-/* ─── Loading Screen ─────────────────────────────────────────── */
-.loading-letter {
-  display: inline-block;
-  will-change: transform, opacity;
-}
-
-/* ─── Sector Badge (Tech Stack) ─────────────────────────────── */
-.sector-badge {
+/* ── Tech/Stack Badge ────────────────────────────────────────── */
+.ma-badge {
   display: inline-flex;
   align-items: center;
-  padding: 4px 12px;
-  border: 1px solid var(--f1-red);
-  border-radius: 0;
-  font-family: var(--font-sans);
-  font-size: 0.7rem;
-  font-weight: 600;
+  padding: 3px 10px;
+  border: 1px solid var(--midnight-700);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--f1-red);
-  background: transparent;
-  will-change: transform, opacity;
+  color: var(--midnight-300);
+  background: rgba(28, 37, 65, 0.45);
+  transition: color 0.2s, border-color 0.2s;
+}
+.ma-badge:hover {
+  color: var(--archive-paper);
+  border-color: var(--midnight-500);
 }
 
-/* ─── F1 Grid line dividers ─────────────────────────────────── */
-.f1-divider {
-  width: 100%;
-  height: 1px;
-  background: var(--border);
-}
-
-/* ─── Back button underline animation ───────────────────────── */
+/* ── Back button underline ───────────────────────────────────── */
 .back-btn {
   position: relative;
   display: inline-flex;
   align-items: center;
   gap: 8px;
 }
-
 .back-btn::after {
   content: '';
   position: absolute;
@@ -178,28 +193,43 @@ body {
   left: 0;
   width: 0;
   height: 1px;
-  background: var(--f1-red);
+  background: var(--midnight-500);
   transition: width 0.3s ease;
 }
+.back-btn:hover::after { width: 100%; }
 
-.back-btn:hover::after {
-  width: 100%;
+/* ── Midnight link underline ─────────────────────────────────── */
+.ma-link {
+  position: relative;
+  display: inline-block;
+  color: var(--midnight-300);
+  transition: color 0.2s;
+}
+.ma-link::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0;
+  width: 0; height: 1px;
+  background: var(--midnight-500);
+  transition: width 0.3s ease;
+}
+.ma-link:hover, .ma-link:focus-visible { color: var(--archive-paper); }
+.ma-link:hover::after, .ma-link:focus-visible::after { width: 100%; }
+
+/* ── Coordinate / index label ────────────────────────────────── */
+.coord-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--midnight-500);
+  user-select: none;
 }
 
-/* ─── Clip path for loading screen panels ────────────────────── */
-.loading-panel {
-  will-change: transform;
-}
-
-/* ─── Reduced motion ─────────────────────────────────────────── */
+/* ── Reduced motion ──────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
@@ -207,12 +237,9 @@ body {
   }
 }
 
-/* ─── Project loading skeleton: scan line (transform only) ──── */
+/* ── Project loading skeleton scan line ──────────────────────── */
 @keyframes scan-x {
   from { transform: translateX(-100%); }
-  to { transform: translateX(100%); }
+  to   { transform: translateX(100%); }
 }
-
-.scan-line {
-  animation: scan-x 1.2s linear infinite;
-}
+.scan-line { animation: scan-x 1.2s linear infinite; }

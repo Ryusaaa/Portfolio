@@ -1,7 +1,7 @@
 export const ABOUT_DATA = {
   title: "Who I Am",
-  description: "I'm a Junior Fullstack Developer driven by curiosity, problem-solving, and the desire to build technology that makes a meaningful difference. With a background in Software and Game Development, I approach challenges with a focus on understanding people's needs, creating practical solutions, and continuously improving how things work.",
-  subDescription: "I value thoughtful design, collaboration, and lifelong learning, and I strive to turn ideas into reliable digital experiences that serve real-world needs."
+  description: "I'm a software developer with a background in Software and Game Development (PPLG), currently focused on backend engineering, system integration, and reliable web application development. I have practical experience building across backend APIs, databases, authentication, and deployment environments.",
+  subDescription: "I care about systems that are maintainable, secure, and grounded in real user needs. I'm drawn to backend infrastructure, AI integrations, and environments where I can keep learning and contribute meaningfully."
 };
 
 export interface ExperienceItem {
@@ -53,6 +53,16 @@ export interface ProjectItem {
 }
 
 export const PROJECTS_DATA: ProjectItem[] = [
+  {
+    id: "fitalenta",
+    slug: "fitalenta",
+    title: "Fitalenta",
+    description: "Integrated web platform unifying the public site, participant portal, and admin/CMS workflows behind a centralized database. Contributed backend APIs, database integration, RBAC, input validation, rate limiting, and CAPTCHA during OJT at PT FAST Indo Talenta.",
+    image: "/Image/FITALENTA.png",
+    tags: ["Express.js", "TypeScript", "MySQL", "RBAC", "REST API", "CAPTCHA"],
+    year: "2026",
+    type: "Web Development",
+  },
   {
     id: "smartai",
     slug: "smartai-refrigerator",
@@ -106,10 +116,10 @@ export const PROJECTS_DATA: ProjectItem[] = [
 ];
 
 export const SOCIAL_LINKS = {
-  email: "satriaibnusaparudin26@gmail.com", // TODO: Update with actual email
-  instagram: "https://www.instagram.com/dlqdmsdn", // TODO: Update
+  email: "satriaibnusaparudin26@gmail.com",
+  instagram: "https://www.instagram.com/dlqdmsdn",
   github: "https://github.com/Ryusaaa",
-  linkedin: "https://www.linkedin.com/in/Satria-Ibnu-Safarudin" // TODO: Update
+  linkedin: "https://www.linkedin.com/in/satria-ibnu-safarudin",
 };
 
 

@@ -20,8 +20,9 @@ describe('data sync', () => {
         expect(new Set(slugs).size).toBe(slugs.length)
     })
 
-    it('SmartAI Refrigerator is first (P1)', () => {
-        expect(PROJECTS_DATA[0].slug).toBe('smartai-refrigerator')
+    it('Fitalenta is first (P1) and SmartAI Refrigerator is second (P2)', () => {
+        expect(PROJECTS_DATA[0].slug).toBe('fitalenta')
+        expect(PROJECTS_DATA[1].slug).toBe('smartai-refrigerator')
     })
 
     it('every referenced local image exists with exact case', () => {

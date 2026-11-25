@@ -13,6 +13,18 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: "fitalenta",
+    title: "FITALENTA",
+    role: "Backend Developer — On-the-Job Training",
+    year: "2026",
+    tags: ["Express.js", "TypeScript", "MySQL", "RBAC", "REST API", "CAPTCHA", "Rate Limiting", "Input Validation"],
+    description: `Fitalenta is an integrated web platform for PT FAST Indo Talenta, rebuilt to unify the public website, participant portal, and administrative/CMS workflows behind a centralized database. During my on-the-job training placement, I contributed backend APIs and database integration across modules, improved authentication with role-based access control (RBAC), added input validation, rate limiting, and CAPTCHA integration to strengthen application security. The project consolidated multiple previously fragmented systems into a single, consistent platform.`,
+    aestheticImage: "/Image/FITALENTA-AESTHETIC.png",
+    detailImages: undefined,
+    githubFrontend: undefined,
+    githubBackend: undefined,
+  },
+  {
     slug: "smartai-refrigerator",
     title: "SMARTAI REFRIGERATOR",
     role: "Full-Stack Developer — Training Final Project",

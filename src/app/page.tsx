@@ -11,30 +11,30 @@ const ARCHIVE_MODULES = [
   {
     code: "01",
     title: "Projects",
-    summary: `${PROJECTS_DATA.length} documented systems & applications across backend, web, and game dev.`,
+    summary: `${PROJECTS_DATA.length} backend, web & game projects.`,
     href: "/projects",
-    cta: "Browse Archive →",
+    cta: "Browse →",
   },
   {
     code: "02",
     title: "Experience",
-    summary: `${EXPERIENCE_DATA.length} roles & vocational training placements (PT FAST Indo Talenta, BBPVP Bandung, PT DiAntara).`,
+    summary: `${EXPERIENCE_DATA.length} roles & vocational placements.`,
     href: "/experience",
-    cta: "View Timeline →",
+    cta: "Timeline →",
   },
   {
     code: "03",
     title: "About",
-    summary: "PPLG background, backend & security engineering focus, and technical discipline breakdown.",
+    summary: "Background, stack, and focus.",
     href: "/about",
-    cta: "Read Profile →",
+    cta: "Profile →",
   },
   {
     code: "04",
     title: "Contact",
-    summary: "Direct email, GitHub, and LinkedIn channels for junior backend & full-stack roles.",
+    summary: "Email, GitHub, and LinkedIn.",
     href: "/contact",
-    cta: "Open Channel →",
+    cta: "Connect →",
   },
 ];
 
@@ -52,11 +52,8 @@ export default function Home() {
             {ARCHIVE_MODULES.map((mod) => (
               <SpotlightCard key={mod.code} data-ascii="surface" className="p-6 flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center justify-between mb-4">
+                  <div className="mb-3">
                     <span className="font-pixel text-[9px] text-midnight-500">[{mod.code}]</span>
-                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-midnight-500">
-                      MODULE
-                    </span>
                   </div>
                   <h2 className="font-display font-bold text-2xl uppercase tracking-tight text-archive-paper mb-2">
                     {mod.title}
@@ -90,7 +87,7 @@ export default function Home() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <div>
             <span className="font-pixel text-[9px] text-midnight-500 block mb-3">
-              [03 // EXPERIENCE]
+              EXPERIENCE
             </span>
             <h2 className="font-display font-bold text-3xl md:text-5xl uppercase tracking-tight text-archive-paper">
               Career <span className="text-midnight-500">Record</span>

@@ -8,6 +8,7 @@ import { ClientWrapper } from "@/components/ClientWrapper";
 import { PageTransitionProvider } from "@/components/transition/page-transition-provider";
 import { PixelCursor } from "@/components/cursor/pixel-cursor";
 import { SiteChrome } from "@/components/site-chrome";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -61,21 +62,30 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.classList.remove('dark','light');document.documentElement.classList.add(t);}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body
         className={`${inter.variable} ${geistMono.variable} ${pressStart2P.variable} ${clashDisplay.variable} antialiased bg-background text-foreground flex flex-col min-h-screen`}
       >
-        <PageTransitionProvider>
-          <SiteChrome>
-            <Navbar />
-          </SiteChrome>
-          <ClientWrapper>
-            <main className="flex-grow">{children}</main>
+        <ThemeProvider>
+          <PageTransitionProvider>
             <SiteChrome>
-              <Footer />
+              <Navbar />
             </SiteChrome>
-          </ClientWrapper>
-          <PixelCursor />
-        </PageTransitionProvider>
+            <ClientWrapper>
+              <main className="flex-grow">{children}</main>
+              <SiteChrome>
+                <Footer />
+              </SiteChrome>
+            </ClientWrapper>
+            <PixelCursor />
+          </PageTransitionProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

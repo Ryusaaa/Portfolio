@@ -27,7 +27,7 @@ export function FeaturedShowcase() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
         <div>
           <span className="font-pixel text-[9px] text-midnight-500 block mb-3">
-            [02 // FEATURED ARCHIVE]
+            FEATURED
           </span>
           <SplitText
             text="Selected Works"
@@ -180,7 +180,7 @@ export function FeaturedShowcase() {
                 />
               </h3>
 
-              <p className="text-xs text-archive-muted leading-relaxed line-clamp-3 mb-4 flex-1 font-sans">
+              <p className="text-xs text-archive-muted leading-relaxed line-clamp-2 mb-4 flex-1 font-sans">
                 {project.description}
               </p>
 

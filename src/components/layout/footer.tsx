@@ -30,7 +30,7 @@ export function Footer() {
               </span>
             </div>
             <p className="text-sm text-midnight-300 max-w-sm leading-relaxed font-sans">
-              Personal engineering archive documenting backend systems, web applications, and software experiments.
+              Backend systems, web apps, and engineering notes.
             </p>
             <AsciiSignature />
           </div>

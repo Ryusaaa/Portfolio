@@ -68,9 +68,8 @@ export function Hero() {
               <p className="font-mono text-xs uppercase tracking-[0.24em] text-midnight-500 mb-3">
                 SOFTWARE / BACKEND / SYSTEMS
               </p>
-              <p className="text-archive-muted text-lg md:text-xl leading-relaxed max-w-xl font-sans">
-                I build reliable web systems, backend services, APIs, and database-backed
-                applications that connect data, workflows, and people.
+              <p className="text-archive-muted text-lg md:text-xl leading-relaxed max-w-lg font-sans">
+                Building reliable web systems, APIs, and backend software.
               </p>
             </motion.div>
 
@@ -98,18 +97,18 @@ export function Hero() {
             </motion.div>
 
             {/* Authored metadata strip */}
-            <div className="mt-12 pt-6 border-t border-midnight-700 grid grid-cols-1 sm:grid-cols-3 gap-6 font-mono text-xs">
+            <div className="mt-10 pt-5 border-t border-midnight-700 grid grid-cols-1 sm:grid-cols-3 gap-5 font-mono text-xs">
               <div>
-                <span className="font-pixel text-[8px] text-midnight-500 block mb-1.5">ROLE</span>
-                <span className="text-archive-paper">Early-career Backend / Full-Stack</span>
+                <span className="font-pixel text-[8px] text-midnight-500 block mb-1">ROLE</span>
+                <span className="text-archive-paper">Backend / Full-Stack</span>
               </div>
               <div>
-                <span className="font-pixel text-[8px] text-midnight-500 block mb-1.5">FOCUS</span>
-                <span className="text-archive-paper">APIs · Databases · Security · AI</span>
+                <span className="font-pixel text-[8px] text-midnight-500 block mb-1">FOCUS</span>
+                <span className="text-archive-paper">APIs · Databases · Security</span>
               </div>
               <div>
-                <span className="font-pixel text-[8px] text-midnight-500 block mb-1.5">LOCATION</span>
-                <span className="text-archive-paper">Bandung, Indonesia</span>
+                <span className="font-pixel text-[8px] text-midnight-500 block mb-1">BASED</span>
+                <span className="text-archive-paper">Bandung, ID</span>
               </div>
             </div>
           </div>
@@ -128,7 +127,7 @@ export function Hero() {
                 aria-hidden="true"
                 className="flex items-center justify-between font-mono text-[10px] text-midnight-500 pb-2 mb-2 border-b border-midnight-700/80"
               >
-                <span>+--- PORTRAIT.ASCII</span>
+                <span>PORTRAIT</span>
                 <span className="font-pixel text-[8px] text-midnight-300">ASCII</span>
               </div>
 
@@ -139,7 +138,7 @@ export function Hero() {
                 className="flex items-center justify-between font-mono text-[10px] text-midnight-500 pt-2 mt-2 border-t border-midnight-700/80"
               >
                 <span>ryusa.tech</span>
-                <span>[01 // SATRIA]</span>
+                <span>01</span>
               </div>
             </motion.div>
           </div>

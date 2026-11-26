@@ -62,6 +62,22 @@
   --ascii-font:     var(--font-mono);
 }
 
+html.light {
+  --midnight-950: #e7e2d8;
+  --midnight-900: #dcd6c9;
+  --midnight-700: #b5ae9f;
+  --midnight-500: #4c6620;
+  --midnight-300: #3f473c;
+  --archive-paper: #141813;
+  --archive-muted: #343b32;
+  --olive: #68872d;
+
+  --primary-foreground:   #f4f1ea;
+  --accent-foreground:    #f4f1ea;
+  --sk-pri-ink:  #f4f1ea;
+  --sk-on-pri:   #f4f1ea;
+}
+
 @theme inline {
   --color-background:           var(--background);
   --color-foreground:           var(--foreground);
@@ -95,6 +111,25 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+html.theme-transition,
+html.theme-transition body,
+html.theme-transition header,
+html.theme-transition footer,
+html.theme-transition section,
+html.theme-transition article,
+html.theme-transition nav,
+html.theme-transition aside,
+html.theme-transition main,
+html.theme-transition a,
+html.theme-transition button,
+html.theme-transition div {
+  transition:
+    background-color 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    fill 0.32s cubic-bezier(0.22, 1, 0.36, 1) !important;
 }
 
 body {
@@ -193,7 +228,7 @@ html.is-loading {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--midnight-300);
-  background: rgba(14, 19, 15, 0.6);
+  background: color-mix(in srgb, var(--midnight-900) 75%, transparent);
   transition: color 0.2s, border-color 0.2s;
 }
 .ma-badge:hover {

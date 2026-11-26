@@ -58,8 +58,8 @@ const SETTINGS = {
   mask: { enabled: false, invert: false, shapes: [] },
   lights: [],
   effects: { characterBloom: 0, blurType: "gaussian", focus: 0 },
-  motion: { type: "glow", speed: 0.4, amount: 0.35 },
-  hover: { effect: "water", strength: 0.45, radius: 0.35, edgeSafe: false },
+  motion: { type: "glow", speed: 0.35, amount: 0.25 },
+  hover: { effect: "water", strength: 0.4, radius: 0.35, edgeSafe: false },
 } as const;
 
 export function AsciiPortrait({ className = "" }: { className?: string }) {
@@ -94,7 +94,10 @@ export function AsciiPortrait({ className = "" }: { className?: string }) {
           ? null
           : mountStudio(canvas, SOURCE, {
               settings: SETTINGS as never,
-              maxDimension: 480,
+              fps: 24,
+              adaptive: true,
+              maxDimension: 420,
+              maxCells: 4800,
               signal: abort.signal,
             })
       )
@@ -121,7 +124,7 @@ export function AsciiPortrait({ className = "" }: { className?: string }) {
   }, []);
 
   return (
-    <div className={`relative aspect-[9/16] w-full overflow-hidden bg-midnight-950 ${className}`}>
+    <div className={`relative aspect-[9/16] w-full overflow-hidden bg-[#0c0d0b] ${className}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={FALLBACK}

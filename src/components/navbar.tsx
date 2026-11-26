@@ -7,6 +7,7 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { X } from "lucide-react";
 import { SOCIAL_LINKS } from "@/lib/data";
 import { SakugaVfxButton } from "./ui/sakuga-vfx-button";
+import { ThemeToggle } from "./theme-toggle";
 
 const NAV_ITEMS = [
   { title: "Archive", href: "/", code: "00" },
@@ -97,19 +98,25 @@ export function Navbar() {
                 </li>
               );
             })}
+            <li className="pl-2">
+              <ThemeToggle />
+            </li>
           </ul>
 
-          {/* Mobile Menu Trigger */}
-          <button
-            type="button"
-            onClick={() => setIsMenuOpen((v) => !v)}
-            aria-label="Open navigation menu"
-            aria-expanded={isMenuOpen}
-            className="ma-btn lg:hidden inline-flex items-center gap-2 border border-midnight-700 bg-midnight-900 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-archive-paper cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-midnight-500"
-          >
-            <span className="font-pixel text-[8px] text-midnight-500">≡</span>
-            <span>Menu</span>
-          </button>
+          {/* Mobile controls */}
+          <div className="flex items-center gap-2 lg:hidden">
+            <ThemeToggle />
+            <button
+              type="button"
+              onClick={() => setIsMenuOpen((v) => !v)}
+              aria-label="Open navigation menu"
+              aria-expanded={isMenuOpen}
+              className="ma-btn inline-flex items-center gap-2 border border-midnight-700 bg-midnight-900 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-archive-paper cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-midnight-500"
+            >
+              <span className="font-pixel text-[8px] text-midnight-500">≡</span>
+              <span>Menu</span>
+            </button>
+          </div>
         </nav>
       </header>
 

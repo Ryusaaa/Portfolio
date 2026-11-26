@@ -16,7 +16,7 @@ const ICONS: Record<string, IconType> = {
 function ToolItem({ name, icon }: { name: string; icon: string }) {
   const Icon = ICONS[icon];
   return (
-    <span className="inline-flex items-center gap-3 text-midnight-500 hover:text-midnight-300 transition-colors duration-200 px-6 border-l border-midnight-700 h-10">
+    <span className="inline-flex items-center gap-3 px-6 border-l border-midnight-700 h-10">
       {Icon && <Icon aria-hidden="true" className="text-xl md:text-2xl shrink-0" />}
       <span className="font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] whitespace-nowrap">{name}</span>
     </span>
@@ -26,6 +26,7 @@ function ToolItem({ name, icon }: { name: string; icon: string }) {
 const LOGOS: LogoItem[] = TOOLS_DATA.map((t) => ({
   node: <ToolItem name={t.name} icon={t.icon} />,
   ariaLabel: t.name,
+  hoverColor: "#b7d12e",
 }));
 
 const PAD = String(TOOLS_DATA.length).padStart(2, "0");
@@ -40,7 +41,7 @@ export function ToolsStrip() {
       <div className="container mx-auto px-6 flex items-center gap-4 mb-8">
         <span className="font-mono text-[10px] md:text-xs text-midnight-500 uppercase tracking-[0.25em]">Tools in use</span>
         <div aria-hidden="true" className="h-[1px] flex-1 bg-midnight-700" />
-        <span className="font-mono text-[10px] md:text-xs text-midnight-700 tracking-[0.25em] tabular-nums">{PAD} TOOLS</span>
+        <span className="font-mono text-[10px] md:text-xs text-midnight-300 tracking-[0.25em] tabular-nums">{PAD} TOOLS</span>
       </div>
 
       {/* Accessible list (screen readers) */}
@@ -48,20 +49,26 @@ export function ToolsStrip() {
         {TOOLS_DATA.map((t) => <li key={t.name}>{t.name}</li>)}
       </ul>
 
-      {/* Animated loop */}
-      <div
-        aria-hidden="true"
-        className="motion-reduce:hidden h-10"
-        style={{
-          maskImage: "linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)",
-          WebkitMaskImage: "linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)",
-        }}
-      >
-        <LogoLoop logos={LOGOS} speed={50} direction="left" logoHeight={40} gap={0} pauseOnHover fadeOut={false} scaleOnHover={false} draggable={false} intro={false} />
+      <div aria-hidden="true" className="motion-reduce:hidden h-10">
+        <LogoLoop
+          logos={LOGOS}
+          speed={60}
+          direction="left"
+          logoHeight={40}
+          gap={0}
+          pauseOnHover
+          hoverSpeed={12}
+          muted={0.5}
+          fadeOut
+          fadeOutWidth={0.1}
+          scaleOnHover={false}
+          className="text-midnight-300"
+          ariaLabel="Tools in use"
+        />
       </div>
 
       {/* Reduced motion: static list */}
-      <ul aria-hidden="true" className="hidden motion-reduce:flex flex-wrap gap-y-4 container mx-auto px-6">
+      <ul aria-hidden="true" className="hidden motion-reduce:flex flex-wrap gap-y-4 container mx-auto px-6 text-midnight-300">
         {TOOLS_DATA.map((t) => <li key={t.name}><ToolItem name={t.name} icon={t.icon} /></li>)}
       </ul>
     </section>

@@ -6,7 +6,6 @@ import { SakugaVfxButton } from "@/components/ui/sakuga-vfx-button";
 import { AsciiSignature } from "@/components/effects/ascii-ornaments";
 
 export const metadata: Metadata = {
-  title: "Contact | Satria Ibnu Safarudin — MIDNIGHT ARCHIVE",
   description:
     "Direct contact links for Satria Ibnu Safarudin — email, GitHub, and LinkedIn.",
 };

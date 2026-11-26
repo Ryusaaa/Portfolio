@@ -124,7 +124,7 @@ function Lightbox({ images, activeIndex, onClose, onPrev, onNext, onSelect }: Li
             data-close
             onClick={onClose}
             aria-label="Close lightbox"
-            className="cursor-target absolute top-5 right-6 font-mono text-[11px] uppercase tracking-widest text-midnight-300 hover:text-white transition-colors flex items-center gap-2 z-10 focus-visible:outline-2 focus-visible:outline-midnight-500"
+            className="cursor-target absolute top-5 right-6 font-mono text-[11px] uppercase tracking-widest text-midnight-300 hover:text-midnight-500 transition-colors flex items-center gap-2 z-10 focus-visible:outline-2 focus-visible:outline-midnight-500"
           >
             <span className="text-base leading-none">✕</span> ESC
           </button>
@@ -213,12 +213,12 @@ function Breadcrumb({ project, index }: { project: Project; index: number }) {
       <TransitionLink
         href={`/#work-${project.slug}`}
         transition={{ index, title: "Selected Works", waitForCover: false }}
-        className="cursor-target back-btn group text-midnight-300 hover:text-white transition-colors duration-200"
+        className="cursor-target back-btn group text-midnight-300 hover:text-midnight-500 transition-colors duration-200"
       >
         <span className="inline-block transition-transform duration-200 group-hover:-translate-x-1">←</span>
         Selected Works
       </TransitionLink>
-      <span aria-hidden="true" className="text-[#3a506b]">/</span>
+      <span aria-hidden="true" className="text-midnight-700">/</span>
       <span className="text-midnight-300" aria-current="page">
         <span className="text-midnight-500">P{index + 1}</span> — {project.title}
       </span>
@@ -375,7 +375,7 @@ function CoverSection({ project, index }: { project: Project; index: number }) {
                 onError={() => void report(null)}
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0b132b]/60 via-transparent to-[#0b132b]/20" />
+              <div className="absolute inset-0 bg-gradient-to-t from-midnight-950/60 via-transparent to-midnight-950/20" />
             </>
           ) : (
             <CoverPlate title={project.title} index={index} />
@@ -493,7 +493,7 @@ function GalleryFrame({ src, i, onOpen }: { src: string; i: number; onOpen: (i: 
       className="cursor-target relative flex-shrink-0 w-[280px] md:w-[400px] aspect-video overflow-hidden border border-midnight-700 bg-midnight-900 group cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-midnight-500"
     >
       {!loaded && (
-        <span className="absolute inset-0 flex items-center justify-center font-mono text-[10px] tracking-[0.3em] text-[#3a506b]">
+        <span className="absolute inset-0 flex items-center justify-center font-mono text-[10px] tracking-[0.3em] text-midnight-700">
           FRAME {pad(i + 1)}
         </span>
       )}
@@ -570,7 +570,7 @@ function NextProject({ next }: { next: ProjectDetailProps["next"] }) {
           <TransitionLink
             href="/#projects"
             transition={{ title: "Selected Works", waitForCover: false }}
-            className="cursor-target font-mono text-[10px] uppercase tracking-[0.25em] text-midnight-300 hover:text-white transition-colors"
+            className="cursor-target font-mono text-[10px] uppercase tracking-[0.25em] text-midnight-300 hover:text-midnight-500 transition-colors"
           >
             Back to all works
           </TransitionLink>
@@ -586,7 +586,7 @@ function NextProject({ next }: { next: ProjectDetailProps["next"] }) {
             {next.title}
           </h2>
           <Magnet padding={40} maxOffset={6} wrapperClassName="inline-block">
-            <span className="inline-flex items-center gap-2 font-mono text-sm uppercase tracking-widest px-5 py-3 border border-midnight-500 text-white transition-colors duration-[220ms] group-hover:bg-midnight-500 group-focus-visible:bg-midnight-500">
+            <span className="inline-flex items-center gap-2 font-mono text-sm uppercase tracking-widest px-5 py-3 border border-midnight-500 text-white transition-colors duration-[220ms] group-hover:bg-midnight-500 group-hover:text-midnight-950 group-focus-visible:bg-midnight-500 group-focus-visible:text-midnight-950">
               Next Project
               <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span>
             </span>

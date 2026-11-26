@@ -14,7 +14,7 @@ interface PixelFxRevealProps {
 
 const W = 320;
 const H = 180;
-const MIDNIGHT_PALETTE = ["#0b132b", "#1c2541", "#3a506b", "#557a95", "#829ab1", "#e8edf2"];
+const MIDNIGHT_PALETTE = ["#050505", "#0e130f", "#3b4a37", "#5e7a2a", "#b7d12e", "#d9d3c4"];
 
 /**
  * Genuine PixelFX (patch-gg/pixelfx) pixel-dissolve transition overlay.
@@ -49,7 +49,7 @@ export function PixelFxReveal({
     const frame = createFrame(W, H);
     const imgData = ctx.createImageData(W, H);
     const fx = createFx(pixelDissolve, {
-      color: "#0b132b",
+      color: "#050505",
       palette: MIDNIGHT_PALETTE,
       seed,
     });

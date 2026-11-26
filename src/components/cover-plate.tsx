@@ -19,7 +19,7 @@ export function CoverPlate({ title, index, className = "" }: CoverPlateProps) {
       <span
         aria-hidden="true"
         className="absolute right-[4%] top-1/2 -translate-y-1/2 font-display font-bold leading-none select-none text-[28vw] md:text-[14vw]"
-        style={{ color: "rgba(85,122,149,0.08)" }}
+        style={{ color: "rgba(183,209,46,0.07)" }}
       >
         P{index + 1}
       </span>

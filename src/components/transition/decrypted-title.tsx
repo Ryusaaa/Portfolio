@@ -14,7 +14,7 @@ export function DecryptedTitle({ text, className }: { text: string; className?: 
         maxIterations={8}
         className={className}
         parentClassName={className}
-        encryptedClassName="text-[#a1a1aa]"
+        encryptedClassName="text-midnight-300"
         aria-hidden="true"
       />
     </span>

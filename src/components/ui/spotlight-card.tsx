@@ -10,7 +10,7 @@ interface SpotlightCardProps {
 
 /**
  * 21st.dev-derived Spotlight Card pattern (https://21st.dev), adapted to
- * MIDNIGHT ARCHIVE (#1c2541 surface, #3a506b border, #557a95 radial spotlight).
+ * the site palette.
  * Disabled under prefers-reduced-motion and non-hover devices.
  */
 export function SpotlightCard({ children, className = "" }: SpotlightCardProps) {
@@ -39,7 +39,7 @@ export function SpotlightCard({ children, className = "" }: SpotlightCardProps) 
           className="pointer-events-none absolute -inset-px transition-opacity duration-300"
           style={{
             opacity,
-            background: `radial-gradient(360px circle at ${pos.x}px ${pos.y}px, rgba(85, 122, 149, 0.16), transparent 65%)`,
+            background: `radial-gradient(360px circle at ${pos.x}px ${pos.y}px, rgba(183, 209, 46, 0.12), transparent 65%)`,
           }}
         />
       )}

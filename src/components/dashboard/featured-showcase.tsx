@@ -6,6 +6,7 @@ import { PROJECTS_DATA } from "@/lib/data";
 import DecryptedText from "../reactbits/decrypted-text";
 import SplitText from "../reactbits/split-text";
 import Magnet from "../reactbits/magnet";
+import HalftoneReveal from "../reactbits/halftone-reveal";
 import { PixelFxReveal } from "../effects/pixel-fx-reveal";
 import { PixelCorners } from "../ui/pixel-details";
 import { CoverPlate } from "../cover-plate";
@@ -13,6 +14,7 @@ import { CoverPlate } from "../cover-plate";
 /**
  * Dashboard Featured Project Showcase powered by:
  * - React Bits: SplitText, DecryptedText, Magnet (src/components/reactbits/*)
+ * - React Bits HalftoneReveal on the featured cover
  * - PixelFX: PixelFxReveal (patch-gg/pixelfx pixel-dissolve)
  */
 export function FeaturedShowcase() {
@@ -43,7 +45,7 @@ export function FeaturedShowcase() {
           href="/projects"
           className="ma-link font-mono text-xs uppercase tracking-[0.2em] w-fit"
         >
-          Open Full Archive ({String(PROJECTS_DATA.length).padStart(2, "0")}) →
+          Open Full Archive ({String(PROJECTS_DATA.length).padStart(2, "0")}) <span className="ma-btn-arrow">→</span>
         </Link>
       </div>
 
@@ -53,19 +55,35 @@ export function FeaturedShowcase() {
           <PixelCorners size="md" />
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-7">
-              <PixelFxReveal seed={11} trigger="inView" className="aspect-video border border-midnight-700 bg-midnight-950">
+              <div className="relative aspect-video overflow-hidden border border-midnight-700 bg-midnight-950">
                 {featured.image ? (
-                  <Image
-                    src={featured.image}
-                    alt={`${featured.title} preview`}
-                    fill
-                    sizes="(min-width: 1024px) 55vw, 100vw"
-                    className="object-cover"
-                  />
+                  <>
+                    <Image
+                      src={featured.image}
+                      alt={`${featured.title} preview`}
+                      fill
+                      sizes="(min-width: 1024px) 55vw, 100vw"
+                      className="object-cover"
+                    />
+                    <HalftoneReveal
+                      src={featured.image}
+                      fit="cover"
+                      mode="duotone"
+                      shape="dot"
+                      cellSize={7}
+                      inkColor="#b7d12e"
+                      accentColor="#d9d3c4"
+                      paperColor="#050505"
+                      revealRadius={170}
+                      linger={1.4}
+                      wander
+                      className="absolute inset-0"
+                    />
+                  </>
                 ) : (
                   <CoverPlate title={featured.title} index={0} />
                 )}
-              </PixelFxReveal>
+              </div>
             </div>
 
             <div className="lg:col-span-5 flex flex-col justify-between gap-5">
@@ -105,9 +123,9 @@ export function FeaturedShowcase() {
               <Magnet padding={32} maxOffset={5} wrapperClassName="self-start">
                 <Link
                   href={`/projects/${featured.slug}`}
-                  className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] px-5 py-3 border border-midnight-500 bg-midnight-950 text-archive-paper hover:bg-midnight-500 transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-midnight-500"
+                  className="ma-btn inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] px-5 py-3 border border-midnight-500 bg-midnight-950 text-archive-paper focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-midnight-500"
                 >
-                  Inspect Case Study →
+                  Inspect Case Study <span className="ma-btn-arrow">→</span>
                 </Link>
               </Magnet>
             </div>

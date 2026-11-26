@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useSyncExternalStore } from "react";
-import { useRouter } from "next/navigation";
 import { useReducedMotion } from "framer-motion";
 import { registerSakugaButton } from "@/lib/sakuga/button.js";
+import { usePageTransition } from "@/components/transition/page-transition-provider";
 
 interface SakugaVfxButtonProps {
   children: React.ReactNode;
@@ -14,6 +14,7 @@ interface SakugaVfxButtonProps {
   className?: string;
   ariaLabel?: string;
   active?: boolean;
+  impact?: boolean;
 }
 
 const emptySubscribe = () => () => {};
@@ -46,8 +47,9 @@ export function SakugaVfxButton({
   className = "",
   ariaLabel,
   active = false,
+  impact = false,
 }: SakugaVfxButtonProps) {
-  const router = useRouter();
+  const { navigate } = usePageTransition();
   const reduced = useReducedMotion();
   const supported = useSyncExternalStore(emptySubscribe, getClientSupport, getServerSnapshot);
   const elRef = useRef<HTMLElement>(null);
@@ -64,54 +66,35 @@ export function SakugaVfxButton({
     if (external) {
       window.open(href, "_blank", "noopener,noreferrer");
     } else {
-      router.push(href);
+      navigate(href);
     }
   };
 
   if (!supported || reduced) {
-    if (href) {
-      return external ? (
+    const tone =
+      variant === "primary"
+        ? "border-midnight-500 bg-midnight-900 text-archive-paper"
+        : "border-midnight-700 text-midnight-300";
+    const base = `ma-btn inline-flex items-center justify-center gap-2 font-mono text-xs uppercase tracking-[0.18em] px-4 py-2 border cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-midnight-500 ${tone} ${className}`;
+
+    if (href && external) {
+      return (
         <a
           href={href}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={ariaLabel}
           onClick={onClick}
-          className={`inline-flex items-center justify-center gap-2 font-mono text-xs uppercase tracking-[0.18em] px-4 py-2 border transition-colors ${
-            variant === "primary"
-              ? "border-midnight-500 bg-midnight-900 text-archive-paper hover:bg-midnight-500"
-              : active
-              ? "border-midnight-500 bg-midnight-900 text-archive-paper"
-              : "border-midnight-700 text-midnight-300 hover:border-midnight-500 hover:text-archive-paper"
-          } ${className}`}
+          data-active={active}
+          className={base}
         >
           {children}
         </a>
-      ) : (
-        <button
-          type="button"
-          aria-label={ariaLabel}
-          onClick={handleActivate}
-          className={`inline-flex items-center justify-center gap-2 font-mono text-xs uppercase tracking-[0.18em] px-4 py-2 border transition-colors cursor-pointer ${
-            variant === "primary"
-              ? "border-midnight-500 bg-midnight-900 text-archive-paper hover:bg-midnight-500"
-              : active
-              ? "border-midnight-500 bg-midnight-900 text-archive-paper"
-              : "border-midnight-700 text-midnight-300 hover:border-midnight-500 hover:text-archive-paper"
-          } ${className}`}
-        >
-          {children}
-        </button>
       );
     }
 
     return (
-      <button
-        type="button"
-        aria-label={ariaLabel}
-        onClick={handleActivate}
-        className={`inline-flex items-center justify-center gap-2 font-mono text-xs uppercase tracking-[0.18em] px-4 py-2 border border-midnight-500 bg-midnight-900 text-archive-paper hover:bg-midnight-500 transition-colors cursor-pointer ${className}`}
-      >
+      <button type="button" aria-label={ariaLabel} onClick={handleActivate} data-active={active} className={base}>
         {children}
       </button>
     );
@@ -121,6 +104,7 @@ export function SakugaVfxButton({
     <sakuga-button
       ref={elRef}
       variant={variant}
+      data-effect={impact ? "impact" : undefined}
       aria-label={ariaLabel}
       onClick={handleActivate}
       className={`sakuga-ma-host inline-block ${active ? "sakuga-ma-active" : ""} ${className}`}

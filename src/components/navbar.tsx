@@ -60,7 +60,7 @@ export function Navbar() {
             href="/"
             className="inline-flex items-center gap-3 group focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-midnight-500"
           >
-            <span className="font-display font-bold text-base uppercase tracking-[0.18em] text-archive-paper group-hover:text-midnight-300 transition-colors">
+            <span className="font-display font-bold text-base uppercase tracking-[0.18em] text-archive-paper group-hover:text-midnight-500 transition-colors">
               RYU
             </span>
             <span className="font-pixel text-[8px] text-midnight-500 border border-midnight-700 px-1.5 py-0.5 bg-midnight-900">
@@ -76,6 +76,7 @@ export function Navbar() {
                 <li key={item.href}>
                   <SakugaVfxButton
                     variant="secondary"
+                    impact
                     href={item.href}
                     active={active}
                     ariaLabel={`${item.title}${active ? " (current page)" : ""}`}
@@ -104,7 +105,7 @@ export function Navbar() {
             onClick={() => setIsMenuOpen((v) => !v)}
             aria-label="Open navigation menu"
             aria-expanded={isMenuOpen}
-            className="lg:hidden inline-flex items-center gap-2 border border-midnight-700 bg-midnight-900 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-archive-paper hover:border-midnight-500 transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-midnight-500"
+            className="ma-btn lg:hidden inline-flex items-center gap-2 border border-midnight-700 bg-midnight-900 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-archive-paper cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-midnight-500"
           >
             <span className="font-pixel text-[8px] text-midnight-500">≡</span>
             <span>Menu</span>
@@ -139,7 +140,7 @@ export function Navbar() {
                   type="button"
                   onClick={closeMenu}
                   aria-label="Close navigation menu"
-                  className="inline-flex items-center gap-1.5 border border-midnight-700 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-midnight-300 hover:text-archive-paper hover:border-midnight-500 cursor-pointer focus-visible:outline-2 focus-visible:outline-midnight-500"
+                  className="ma-btn inline-flex items-center gap-1.5 border border-midnight-700 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-midnight-300 cursor-pointer focus-visible:outline-2 focus-visible:outline-midnight-500"
                 >
                   <span>Close</span>
                   <X size={14} aria-hidden="true" />
@@ -154,7 +155,7 @@ export function Navbar() {
                       key={item.href}
                       href={item.href}
                       onClick={closeMenu}
-                      className={`flex items-center justify-between px-4 py-3.5 border transition-colors ${
+                      className={`flex items-center justify-between px-4 py-3.5 border transition-all duration-200 hover:translate-x-1 ${
                         active
                           ? "border-midnight-500 bg-midnight-950 text-archive-paper"
                           : "border-midnight-700/70 text-midnight-300 hover:border-midnight-500 hover:text-archive-paper"
@@ -172,14 +173,14 @@ export function Navbar() {
               </nav>
 
               <div className="pt-6 border-t border-midnight-700 font-mono text-[11px] text-midnight-300 flex flex-col gap-2">
-                <a href={`mailto:${SOCIAL_LINKS.email}`} className="hover:text-archive-paper break-all">
+                <a href={`mailto:${SOCIAL_LINKS.email}`} className="ma-link break-all">
                   {SOCIAL_LINKS.email}
                 </a>
                 <div className="flex gap-4 text-midnight-500">
-                  <a href={SOCIAL_LINKS.github} target="_blank" rel="noopener noreferrer" className="hover:text-archive-paper">
+                  <a href={SOCIAL_LINKS.github} target="_blank" rel="noopener noreferrer" className="ma-link">
                     GitHub ↗
                   </a>
-                  <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-archive-paper">
+                  <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer" className="ma-link">
                     LinkedIn ↗
                   </a>
                 </div>

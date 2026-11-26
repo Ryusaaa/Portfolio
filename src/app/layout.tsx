@@ -42,11 +42,11 @@ const clashDisplay = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Satria Ibnu Safarudin — MIDNIGHT ARCHIVE",
+  title: "Satria Ibnu Safarudin - Portfolio",
   description:
     "Personal engineering archive of Satria Ibnu Safarudin — backend/full-stack developer building reliable web systems, services, and integrations. Based in Bandung, Indonesia.",
   openGraph: {
-    title: "Satria Ibnu Safarudin — MIDNIGHT ARCHIVE",
+    title: "Satria Ibnu Safarudin - Portfolio",
     description: "Backend / full-stack developer. Systems, integrations, and software built with intention.",
     url: "https://ryusa.tech",
     siteName: "ryusa.tech",

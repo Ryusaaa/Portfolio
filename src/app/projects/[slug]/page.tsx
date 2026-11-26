@@ -19,13 +19,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const project = getProjectBySlug(slug);
 
   if (!project) {
-    return {
-      title: "Project Not Found | Ryusaaa",
-    };
+    return {};
   }
 
   return {
-    title: `${project.title} — ${project.role} | Ryusaaa`,
     description: project.description.slice(0, 155) + "…",
   };
 }

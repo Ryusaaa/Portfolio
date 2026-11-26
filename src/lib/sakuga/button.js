@@ -27,6 +27,7 @@ class SakugaButton extends fx.Base {
     .ok { display: inline-block; width: calc(var(--ok, 0) * 24px); height: 18px; margin-left: calc(var(--ok, 0) * 6px); vertical-align: -2px; overflow: visible; fill: none; stroke: var(--sk-acc); stroke-width: 4.4; stroke-linecap: round; stroke-linejoin: round; transform: scale(var(--ok, 0)); }`;
 
   get primary() { return this.getAttribute('variant') !== 'secondary'; }
+  get impactful() { return this.primary || this.dataset.effect === 'impact'; }
   get disabled() { return this.hasAttribute('disabled'); }
   set disabled(v) { this.toggleAttribute('disabled', !!v); }
   attributeChangedCallback() { if (this.b) this.b.disabled = this.disabled; }
@@ -38,7 +39,7 @@ class SakugaButton extends fx.Base {
   setup() {
     const b = this.b = this.$('.btn');
     this.ok = new Spring(0, 420, 14); this.seq = 0;
-    if (!this.primary) {
+    if (!this.impactful) {
       this.sq = squashy(b, { low: 0.72, wide: 0.3 });
       b.addEventListener('click', () => { this.sq.s.x = Math.min(this.sq.s.x, 0.8); this.sq.s.v += 4; const c = at(b, 1, 0); ticks(c.x - 8, c.y - 4, { dir: -1.05, n: 3, r: 5, len: 17, fan: 0.36, life: 0.5 }); });
     } else {
@@ -91,8 +92,8 @@ class Spring {
 
 // â”€â”€â”€â”€â”€â”€â”€â”€â”€ the palette â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // P is for the effects; the CSS variables below are for the controls.
-const P = { fill: '#e8edf2', shade: '#829ab1', line: '#557a95', accent: '#557a95', ink: '#0b132b', sfx: ['#e8edf2', '#0b132b'] };
-const VARS = '--sk-card:#1c2541;--sk-ink:#e8edf2;--sk-dim:#829ab1;--sk-soft:#3a506b;--sk-pri:#557a95;--sk-pri-ink:#e8edf2;--sk-acc:#557a95;--sk-track:#3a506b;--sk-r:0px;--sk-bw:1px;--sk-sh:3px 3px 0 var(--sk-soft);--sk-btn-sh:var(--sk-sh);--sk-btn-line:var(--sk-acc);--sk-alt-sh:none;--sk-alt-line:var(--sk-soft);--sk-tick:var(--sk-acc);--sk-fill:var(--sk-acc);--sk-on-pri:#e8edf2;';
+const P = { fill: '#d9d3c4', shade: '#9fb0b5', line: '#5e7a2a', accent: '#b7d12e', ink: '#050505', sfx: ['#d9d3c4', '#050505'] };
+const VARS = '--sk-card:#0e130f;--sk-ink:#d9d3c4;--sk-dim:#9fb0b5;--sk-soft:#3b4a37;--sk-pri:#b7d12e;--sk-pri-ink:#050505;--sk-acc:#b7d12e;--sk-track:#3b4a37;--sk-r:0px;--sk-bw:1px;--sk-sh:3px 3px 0 var(--sk-soft);--sk-btn-sh:var(--sk-sh);--sk-btn-line:var(--sk-acc);--sk-alt-sh:none;--sk-alt-line:var(--sk-soft);--sk-tick:var(--sk-acc);--sk-fill:var(--sk-acc);--sk-on-pri:#050505;';
 // :where() keeps these at no specificity, so a page's own :root { --sk-acc: ... } wins.
 const pageCss = `:where(:root){${VARS}}
 canvas.sakuga-fx{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:2147483000}`;
@@ -285,7 +286,7 @@ function sfx(name, x, y, { size = 64, rot = -0.14, life = 0.95, col, edge, dots 
   });
 }
 // two lettering styles: hollow (white with an ink edge) and dotted (screentone letters)
-const hollow = () => ({ col: '#ffffff', edge: '#1d1a4a' }), dotted = () => ({ dots: true, edge: '#1d1a4a' });
+const hollow = () => ({ col: '#ffffff', edge: '#050505' }), dotted = () => ({ dots: true, edge: '#050505' });
 
 // â”€â”€â”€â”€â”€â”€â”€â”€â”€ for components â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const at = (el, fx = 0.5, fy = 0.5) => { const b = el.getBoundingClientRect(); return { x: b.left + scrollX + b.width * fx, y: b.top + scrollY + b.height * fy, w: b.width, h: b.height }; };
@@ -334,4 +335,3 @@ component(window.SakugaFX);
 })();
 
 }
-

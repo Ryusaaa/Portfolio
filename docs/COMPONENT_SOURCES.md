@@ -23,6 +23,8 @@ This file records external component sources, licenses, and local file paths use
   - `DecryptedText` (`src/components/reactbits/decrypted-text.tsx`) — used in `src/components/dashboard/featured-showcase.tsx`.
   - `Magnet` (`src/components/reactbits/magnet.tsx`) — used in `src/components/dashboard/featured-showcase.tsx` and `src/components/ProjectDetail.tsx`.
   - `LogoLoop` (`src/components/reactbits/logo-loop.tsx`) — used in `src/components/tools-strip.tsx`.
+  - `GradientASCII` (`src/components/reactbits/gradient-ascii.tsx`) — Backgrounds / Gradient ASCII, rendered behind the Hero through `src/components/dashboard/ascii-backdrop.tsx`.
+  - `HalftoneReveal` (`src/components/reactbits/halftone-reveal.tsx`) — Animations / Halftone Reveal, used on the featured project cover in `src/components/dashboard/featured-showcase.tsx`.
 
 ## 4. 21st.dev Patterns (`21st.dev`)
 - **Spotlight Card (`src/components/ui/spotlight-card.tsx`):**

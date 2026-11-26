@@ -4,7 +4,6 @@ import { AsciiRule } from "@/components/effects/ascii-ornaments";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 
 export const metadata: Metadata = {
-  title: "Experience | Satria Ibnu Safarudin — MIDNIGHT ARCHIVE",
   description:
     "Work experience, vocational training, and education timeline of Satria Ibnu Safarudin.",
 };

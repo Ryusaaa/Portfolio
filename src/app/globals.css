@@ -1,14 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  /* ── MIDNIGHT ARCHIVE palette ── */
-  --midnight-950: #0b132b;
-  --midnight-900: #1c2541;
-  --midnight-700: #3a506b;
-  --midnight-500: #557a95;
-  --midnight-300: #829ab1;
-  --archive-paper: #e8edf2;
-  --archive-muted: #aebdca;
+  --midnight-950: #050505;
+  --midnight-900: #0e130f;
+  --midnight-700: #3b4a37;
+  --midnight-500: #b7d12e;
+  --midnight-300: #9fb0b5;
+  --archive-paper: #d9d3c4;
+  --archive-muted: #b9ae98;
+  --olive: #5e7a2a;
+  --sand: #b89f7e;
+  --wood: #a9825a;
 
   /* Semantic roles */
   --background:           var(--midnight-950);
@@ -16,13 +18,13 @@
   --card:                 var(--midnight-900);
   --card-foreground:      var(--archive-paper);
   --primary:              var(--midnight-500);
-  --primary-foreground:   var(--archive-paper);
+  --primary-foreground:   var(--midnight-950);
   --secondary:            var(--midnight-900);
   --secondary-foreground: var(--archive-paper);
   --muted:                var(--midnight-900);
   --muted-foreground:     var(--midnight-300);
   --accent:               var(--midnight-500);
-  --accent-foreground:    var(--archive-paper);
+  --accent-foreground:    var(--midnight-950);
   --border:               var(--midnight-700);
 
   /* Typography */
@@ -37,7 +39,7 @@
   --sk-dim:      var(--midnight-300);
   --sk-soft:     var(--midnight-700);
   --sk-pri:      var(--midnight-500);
-  --sk-pri-ink:  var(--archive-paper);
+  --sk-pri-ink:  var(--midnight-950);
   --sk-acc:      var(--midnight-500);
   --sk-track:    var(--midnight-700);
   --sk-r:        0px;
@@ -49,7 +51,7 @@
   --sk-alt-line: var(--midnight-700);
   --sk-tick:     var(--midnight-300);
   --sk-fill:     var(--midnight-500);
-  --sk-on-pri:   var(--archive-paper);
+  --sk-on-pri:   var(--midnight-950);
 }
 
 @theme inline {
@@ -74,6 +76,9 @@
   --color-midnight-300:  var(--midnight-300);
   --color-archive-paper: var(--archive-paper);
   --color-archive-muted: var(--archive-muted);
+  --color-olive:         var(--olive);
+  --color-sand:          var(--sand);
+  --color-wood:          var(--wood);
 
   --font-sans:    var(--font-sans);
   --font-display: var(--font-display);
@@ -89,6 +94,15 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   overflow-x: hidden;
+}
+
+::selection {
+  background: var(--midnight-500);
+  color: var(--midnight-950);
+}
+
+html.is-loading {
+  overflow: hidden;
 }
 
 /* ── Typography utilities ──────────────────────────────────────── */
@@ -171,7 +185,7 @@ body {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--midnight-300);
-  background: rgba(28, 37, 65, 0.45);
+  background: rgba(14, 19, 15, 0.6);
   transition: color 0.2s, border-color 0.2s;
 }
 .ma-badge:hover {
@@ -224,6 +238,87 @@ body {
   text-transform: uppercase;
   color: var(--midnight-500);
   user-select: none;
+}
+
+/* ── Button hover ────────────────────────────────────────────── */
+.ma-btn {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition: color 0.25s ease, border-color 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.ma-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--midnight-500);
+  transform: translateY(101%);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ma-btn:hover,
+.ma-btn:focus-visible {
+  color: var(--midnight-950);
+  border-color: var(--midnight-500);
+  transform: translate(-2px, -2px);
+  box-shadow: 3px 3px 0 var(--olive);
+}
+.ma-btn:hover::before,
+.ma-btn:focus-visible::before {
+  transform: translateY(0);
+}
+.ma-btn:hover *,
+.ma-btn:focus-visible * {
+  color: inherit;
+}
+.ma-btn:active {
+  transform: translate(0, 0);
+  box-shadow: 0 0 0 var(--olive);
+}
+.ma-btn[data-active='true'] {
+  border-color: var(--midnight-500);
+  color: var(--midnight-500);
+}
+.ma-btn-arrow {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+.ma-btn:hover .ma-btn-arrow,
+.ma-link:hover .ma-btn-arrow {
+  transform: translateX(4px);
+}
+
+.sakuga-ma-host {
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+.sakuga-ma-host:hover {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 6px 0 rgba(94, 122, 42, 0.45));
+}
+.sakuga-ma-host:active {
+  transform: translateY(0);
+  filter: none;
+}
+
+/* ── Route loader ────────────────────────────────────────────── */
+@keyframes loader-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.loader-blink {
+  animation: loader-blink 0.9s steps(1) infinite;
+}
+@keyframes loader-sweep {
+  from { transform: translateY(-100%); }
+  to   { transform: translateY(100vh); }
+}
+.loader-sweep {
+  animation: loader-sweep 2.2s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-transition-overlay] {
+    display: none !important;
+  }
 }
 
 /* ── Reduced motion ──────────────────────────────────────────── */

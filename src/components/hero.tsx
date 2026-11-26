@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { SOCIAL_LINKS } from "@/lib/data";
 import { SakugaVfxButton } from "./ui/sakuga-vfx-button";
 import { PixelCorners, PixelMarker } from "./ui/pixel-details";
+import { AsciiBackdrop } from "./dashboard/ascii-backdrop";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -15,8 +16,7 @@ export function Hero() {
       className="relative min-h-[calc(100vh-4rem)] mt-16 flex flex-col justify-center overflow-hidden bg-midnight-950 py-14 md:py-20"
       aria-label="Introduction"
     >
-      {/* Subtle pixel grid background */}
-      <div aria-hidden="true" className="absolute inset-0 bg-midnight-grid pointer-events-none" />
+      <AsciiBackdrop />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
@@ -90,7 +90,7 @@ export function Hero() {
                 href={SOCIAL_LINKS.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono text-xs uppercase tracking-[0.2em] text-midnight-300 hover:text-archive-paper transition-colors px-2 py-2"
+                className="ma-link font-mono text-xs uppercase tracking-[0.2em] px-2 py-2"
               >
                 GitHub ↗
               </a>

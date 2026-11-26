@@ -81,7 +81,7 @@ export function Footer() {
           <button
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="hover:text-archive-paper transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-midnight-500"
+            className="ma-btn border border-midnight-700 px-3 py-1.5 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-midnight-500"
           >
             [ ↑ TOP ]
           </button>

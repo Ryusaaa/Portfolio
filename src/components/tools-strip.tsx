@@ -3,14 +3,14 @@
 import type { IconType } from "react-icons";
 import {
   SiCloudflare, SiExpress, SiFlutter, SiGreensock, SiLaravel, SiMysql, SiNextdotjs, SiNodedotjs,
-  SiPostgresql, SiPrisma, SiReact, SiTailwindcss, SiTypescript, SiVite, SiVuedotjs,
+  SiPostgresql, SiPrisma, SiReact, SiTailwindcss, SiTypescript, SiJavascript, SiGo, SiPython, SiDocker, SiVite, SiVuedotjs,
 } from "react-icons/si";
 import LogoLoop, { type LogoItem } from "./reactbits/logo-loop";
 import { TOOLS_DATA } from "@/lib/data";
 
 const ICONS: Record<string, IconType> = {
   SiNextdotjs, SiReact, SiVuedotjs, SiVite, SiLaravel, SiNodedotjs, SiExpress, SiTailwindcss,
-  SiTypescript, SiMysql, SiPostgresql, SiPrisma, SiFlutter, SiGreensock, SiCloudflare,
+  SiTypescript, SiJavascript, SiGo, SiPython, SiDocker, SiMysql, SiPostgresql, SiPrisma, SiFlutter, SiGreensock, SiCloudflare,
 };
 
 function ToolItem({ name, icon }: { name: string; icon: string }) {

@@ -34,7 +34,7 @@ describe('Hero Component', () => {
     it('renders location and ASCII portrait', () => {
         render(<Hero />)
         expect(screen.getByText('BANDUNG, INDONESIA')).toBeInTheDocument()
-        const portrait = screen.getByAltText('Animated ASCII art portrait of Satria Ibnu Safarudin')
-        expect(portrait).toHaveAttribute('src', '/ascii-satria.gif')
+        const portrait = screen.getByAltText('ASCII art portrait of Satria Ibnu Safarudin')
+        expect(portrait).toHaveAttribute('src', '/ascii-satria.png')
     })
 })

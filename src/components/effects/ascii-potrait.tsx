@@ -9,7 +9,7 @@ const SETTINGS = {
   version: 1,
   aspectRatio: "original",
   style: "ascii",
-  cellSize: 4,
+  cellSize: 6,
   charset: " .:-=+*#%@",
   colorMode: "source",
   ink: "#e6e3da",
@@ -26,7 +26,7 @@ const SETTINGS = {
   warps: [],
   warpEdge: "clamp",
   crop: { x: 0.5, y: 0.5, zoom: 1, rotation: 0 },
-  backdrop: { mode: "blurred", color: "#0c0d0b", color2: "#1d1d1b", blur: 14, opacity: 0.3 },
+  backdrop: { mode: "solid", color: "#0c0d0b", color2: "#1d1d1b", blur: 0, opacity: 0.2 },
   color: {
     brightness: 0.05,
     contrast: 1.2,
@@ -57,9 +57,9 @@ const SETTINGS = {
   },
   mask: { enabled: false, invert: false, shapes: [] },
   lights: [],
-  effects: { characterBloom: 0.5, blurType: "gaussian", focus: 0.5 },
-  motion: { type: "glow", speed: 0.6, amount: 0.8 },
-  hover: { effect: "water", strength: 0.7, radius: 0.45, edgeSafe: false },
+  effects: { characterBloom: 0, blurType: "gaussian", focus: 0 },
+  motion: { type: "glow", speed: 0.4, amount: 0.35 },
+  hover: { effect: "water", strength: 0.45, radius: 0.35, edgeSafe: false },
 } as const;
 
 export function AsciiPortrait({ className = "" }: { className?: string }) {
@@ -77,6 +77,16 @@ export function AsciiPortrait({ className = "" }: { className?: string }) {
     const abort = new AbortController();
     let studio: { destroy: () => void; pause: (value?: boolean) => void } | null = null;
     let cancelled = false;
+    let visible = true;
+
+    const observer =
+      typeof IntersectionObserver !== "undefined"
+        ? new IntersectionObserver((entries) => {
+            visible = entries.some((entry) => entry.isIntersecting);
+            studio?.pause(reduced || !visible);
+          })
+        : null;
+    observer?.observe(host);
 
     import("asciify-engine/studio")
       .then(({ mountStudio }) =>
@@ -84,7 +94,7 @@ export function AsciiPortrait({ className = "" }: { className?: string }) {
           ? null
           : mountStudio(canvas, SOURCE, {
               settings: SETTINGS as never,
-              maxDimension: 1280,
+              maxDimension: 480,
               signal: abort.signal,
             })
       )
@@ -95,7 +105,7 @@ export function AsciiPortrait({ className = "" }: { className?: string }) {
           return;
         }
         studio = instance;
-        if (reduced) instance.pause(true);
+        if (reduced || !visible) instance.pause(true);
         setReady(true);
       })
       .catch(() => setReady(false));
@@ -103,6 +113,7 @@ export function AsciiPortrait({ className = "" }: { className?: string }) {
     return () => {
       cancelled = true;
       abort.abort();
+      observer?.disconnect();
       studio?.destroy();
       canvas.remove();
       setReady(false);
@@ -115,8 +126,9 @@ export function AsciiPortrait({ className = "" }: { className?: string }) {
       <img
         src={FALLBACK}
         alt="ASCII art portrait of Satria Ibnu Safarudin"
-        width={720}
-        height={1280}
+        width={640}
+        height={1138}
+        decoding="async"
         className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-500 ${
           ready ? "opacity-0" : "opacity-100"
         }`}

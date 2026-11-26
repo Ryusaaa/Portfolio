@@ -5,6 +5,7 @@ import { SOCIAL_LINKS } from "@/lib/data";
 import { SakugaVfxButton } from "./ui/sakuga-vfx-button";
 import { PixelCorners, PixelMarker } from "./ui/pixel-details";
 import { AsciiBackdrop } from "./dashboard/ascii-backdrop";
+import { AsciiPortrait } from "./effects/ascii-potrait";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -113,7 +114,7 @@ export function Hero() {
             </div>
           </div>
 
-          {/* ── Right: Existing ASCII GIF anchor ───────────────── */}
+          {/* ── Right: ASCII portrait anchor ───────────────── */}
           <div className="lg:col-span-5 flex items-center justify-center lg:justify-end">
             <motion.div
               initial={reduced ? false : { opacity: 0, y: 16 }}
@@ -127,18 +128,11 @@ export function Hero() {
                 aria-hidden="true"
                 className="flex items-center justify-between font-mono text-[10px] text-midnight-500 pb-2 mb-2 border-b border-midnight-700/80"
               >
-                <span>+--- PORTRAIT.GIF</span>
+                <span>+--- PORTRAIT.ASCII</span>
                 <span className="font-pixel text-[8px] text-midnight-300">ASCII</span>
               </div>
 
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/ascii-satria.gif"
-                alt="Animated ASCII art portrait of Satria Ibnu Safarudin"
-                width={400}
-                height={533}
-                className="block w-full max-w-[290px] sm:max-w-[340px] lg:max-w-[390px] h-auto object-contain border border-midnight-700"
-              />
+              <AsciiPortrait className="w-[240px] sm:w-[280px] lg:w-[320px] border border-midnight-700" />
 
               <div
                 aria-hidden="true"

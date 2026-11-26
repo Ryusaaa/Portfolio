@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { PROJECTS_DATA } from "@/lib/data";
 import { ArchiveTabs, type ArchiveTab } from "@/components/ui/archive-tabs";
-import { PixelFxReveal } from "@/components/effects/pixel-fx-reveal";
+import { AsciiMediaReveal } from "@/components/effects/ascii-media-reveal";
 import { PixelCorners } from "@/components/ui/pixel-details";
 import { CoverPlate } from "@/components/cover-plate";
 import { AsciiRule } from "@/components/effects/ascii-ornaments";
@@ -88,9 +88,9 @@ export default function ProjectsPage() {
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                     <div className="lg:col-span-5">
                       <Link href={`/projects/${project.slug}`} className="block">
-                        <PixelFxReveal
-                          seed={30 + idx * 5}
-                          trigger="hover"
+                        <AsciiMediaReveal
+                          replayOnHover
+                          preset="dither"
                           className="aspect-video border border-midnight-700 bg-midnight-950 relative"
                         >
                           {project.image ? (
@@ -104,7 +104,7 @@ export default function ProjectsPage() {
                           ) : (
                             <CoverPlate title={project.title} index={globalIdx} />
                           )}
-                        </PixelFxReveal>
+                        </AsciiMediaReveal>
                       </Link>
                     </div>
 

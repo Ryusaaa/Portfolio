@@ -52,6 +52,14 @@
   --sk-tick:     var(--midnight-300);
   --sk-fill:     var(--midnight-500);
   --sk-on-pri:   var(--midnight-950);
+
+  /* ascii-reveal Midnight Archive theme */
+  --ascii-accent:   var(--midnight-500);
+  --ascii-flash:    var(--midnight-500);
+  --ascii-glyph:    var(--midnight-300);
+  --ascii-skeleton: var(--midnight-300);
+  --ascii-surface:  var(--midnight-950);
+  --ascii-font:     var(--font-mono);
 }
 
 @theme inline {

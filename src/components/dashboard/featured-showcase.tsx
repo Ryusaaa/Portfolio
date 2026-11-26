@@ -7,7 +7,7 @@ import DecryptedText from "../reactbits/decrypted-text";
 import SplitText from "../reactbits/split-text";
 import Magnet from "../reactbits/magnet";
 import HalftoneReveal from "../reactbits/halftone-reveal";
-import { PixelFxReveal } from "../effects/pixel-fx-reveal";
+import { AsciiMediaReveal } from "../effects/ascii-media-reveal";
 import { PixelCorners } from "../ui/pixel-details";
 import { CoverPlate } from "../cover-plate";
 
@@ -144,9 +144,9 @@ export function FeaturedShowcase() {
               href={`/projects/${project.slug}`}
               className="flex flex-col h-full p-5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-midnight-500"
             >
-              <PixelFxReveal
-                seed={20 + idx * 7}
-                trigger="hover"
+              <AsciiMediaReveal
+                replayOnHover
+                preset="dither"
                 className="aspect-video border border-midnight-700 bg-midnight-950 mb-5 relative"
               >
                 {project.image ? (
@@ -160,7 +160,7 @@ export function FeaturedShowcase() {
                 ) : (
                   <CoverPlate title={project.title} index={idx + 1} />
                 )}
-              </PixelFxReveal>
+              </AsciiMediaReveal>
 
               <div className="flex items-center justify-between mb-2">
                 <span className="font-pixel text-[8px] text-midnight-500">

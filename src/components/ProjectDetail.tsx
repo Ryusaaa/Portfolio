@@ -14,7 +14,7 @@ import { usePageTransition } from "./transition/page-transition-provider";
 import { DecryptedTitle } from "./transition/decrypted-title";
 import { Magnet } from "./magnetic-cta";
 import { CoverPlate } from "./cover-plate";
-import { PixelFxReveal } from "./effects/pixel-fx-reveal";
+import { AsciiReveal } from "ascii-reveal";
 import SplitText from "./reactbits/split-text";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -361,7 +361,7 @@ function CoverSection({ project, index }: { project: Project; index: number }) {
 
   return (
     <div ref={imgWrapRef} className="relative w-full aspect-[16/7] overflow-hidden border-b border-midnight-700 bg-midnight-900">
-      <PixelFxReveal trigger="inView" seed={index + 1} className="w-full h-full">
+      <AsciiReveal preset="dither" duration="fast" revealOnHydrate className="w-full h-full">
         <div data-cover-inner className="relative w-full h-full">
           {project.aestheticImage ? (
             <>
@@ -381,7 +381,7 @@ function CoverSection({ project, index }: { project: Project; index: number }) {
             <CoverPlate title={project.title} index={index} />
           )}
         </div>
-      </PixelFxReveal>
+      </AsciiReveal>
     </div>
   );
 }
